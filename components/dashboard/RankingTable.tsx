@@ -57,7 +57,9 @@ export function RankingTable({ matches }: { matches: Match[] }) {
                         ? "Airline"
                         : m.category === "hotel"
                           ? "Hotel"
-                          : "Auto"}
+                          : m.category === "auto"
+                            ? "Auto"
+                            : "Cruise"}
                     </Badge>
                   </td>
                   <td className="py-3 px-4">

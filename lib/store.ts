@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-export type Category = "all" | "airline" | "hotel" | "auto"
+export type Category = "all" | "airline" | "hotel" | "auto" | "cruise"
 export type Difficulty = "all" | "easy" | "medium" | "hard"
 export type SortKey = "ease" | "rate" | "name" | "cost"
 export type ViewMode = "grid" | "table"

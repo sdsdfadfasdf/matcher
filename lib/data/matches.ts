@@ -1,4 +1,4 @@
-export type MatchCategory = "airline" | "hotel" | "auto"
+export type MatchCategory = "airline" | "hotel" | "auto" | "cruise"
 
 export type Match = {
   id: string
@@ -1166,6 +1166,102 @@ Proof attached. Thank you.
     tips: "Marked 'M' on StatusMatcher. Better availability in Europe than US. Good for European travel.",
     votes: 12,
   },
+  {
+    id: "virgin-voyages",
+    program: "Virgin Voyages Blue Extras",
+    category: "cruise",
+    matchRate: 95,
+    cost: "Free",
+    difficulty: "easy",
+    requirements: [
+      "Elite status from 35+ airline, hotel, or cruise programs",
+      "Book a Virgin Voyages sailing by application deadline",
+      "New booking only (not existing reservations)",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.virginvoyages.com/status-match",
+      template: `Subject: Virgin Voyages Status Match Request
+
+Dear Virgin Voyages Sailor Services,
+
+I am requesting the Blue Extras status match for my upcoming sailing.
+
+Name: {name}
+Current Status: {status}
+
+I hold elite status with {status} and would like to receive Blue Extras perks on my next Virgin Voyages booking.
+
+Thank you,
+{name}`,
+    },
+    tips: "Massive status match accepting 35+ programs (Hilton Gold+, Marriott Platinum+, Delta Gold+, United Silver+, etc.). Perks: free specialty coffee daily, free laundry bag, exclusive cocktail event. Check for current application windows.",
+    votes: 45,
+  },
+  {
+    id: "ponant-cruises",
+    program: "PONANT Yacht Club Status Match",
+    category: "cruise",
+    matchRate: 85,
+    cost: "Free (with new booking)",
+    difficulty: "easy",
+    requirements: [
+      "Elite status from any major cruise line",
+      "New PONANT booking",
+      "Book by May 31, 2026 (current window)",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://en.ponant.com/benefit-from-the-status-match",
+      template: `Subject: PONANT Status Match Request
+
+Dear PONANT Yacht Club Team,
+
+I am requesting a status match for my upcoming PONANT sailing.
+
+Name: {name}
+Current Cruise Status: {status}
+
+I hold elite status with another cruise line and would like to be matched to the appropriate PONANT tier (Major, Admiral, or Grand Admiral).
+
+Thank you,
+{name}`,
+    },
+    tips: "Matches from most major cruise lines to 3 tiers: Major (NCL Platinum, MSC Silver, Princess Gold, HAL 2-Star, RCI Diamond), Admiral (NCL Diamond, MSC Gold, Celebrity Elite Plus, HAL 3-Star), Grand Admiral (NCL Sapphire+, MSC Diamond, Princess Elite, Celebrity Zenith, RCI Pinnacle). Top Commodore tier not matchable.",
+    votes: 12,
+  },
+  {
+    id: "royal-caribbean-group",
+    program: "Royal Caribbean Group Cross-Match",
+    category: "cruise",
+    matchRate: 100,
+    cost: "Free (automatic)",
+    difficulty: "easy",
+    requirements: [
+      "Elite status with Royal Caribbean, Celebrity, or Silversea",
+      "Loyalty account on the target brand",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.royalcaribbean.com/loyalty/status-match",
+      template: `Subject: Royal Caribbean Group Loyalty Status Match
+
+Dear Crown & Anchor / Captain's Club / Venetian Society Team,
+
+I am requesting a cross-brand status match.
+
+Name: {name}
+Current Brand and Status: {status}
+Loyalty Number: {memberId}
+
+I understand status is matched automatically across Royal Caribbean, Celebrity Cruises, and Silversea.
+
+Thank you,
+{name}`,
+    },
+    tips: "Automatic cross-brand status match between Royal Caribbean (Crown & Anchor), Celebrity (Captain's Club), and Silversea (Venetian Society). Diamond on Royal = Elite on Celebrity. Points Choice program lets you pool points across brands. No deadline, ongoing.",
+    votes: 38,
+  },
 ]
 
 export const categories = [
@@ -1173,6 +1269,7 @@ export const categories = [
   { id: "airline" as const, label: "Airlines" },
   { id: "hotel" as const, label: "Hotels" },
   { id: "auto" as const, label: "Auto Rentals" },
+  { id: "cruise" as const, label: "Cruises" },
 ]
 
 export const difficulties = [

@@ -43,7 +43,9 @@ export function MatchCard({ match }: { match: Match }) {
                     ? "Airline"
                     : match.category === "hotel"
                       ? "Hotel"
-                      : "Auto"}
+                      : match.category === "auto"
+                        ? "Auto"
+                        : "Cruise"}
                 </Badge>
               </div>
               <div className="flex items-center gap-2 text-xs text-zinc-500">
