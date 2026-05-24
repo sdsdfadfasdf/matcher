@@ -1624,6 +1624,120 @@ Thank you,
     votes: 8,
   },
   {
+    id: "km-malta-airlines",
+    program: "KM Malta Airlines KM Rewards",
+    category: "airline",
+    matchRate: 85,
+    cost: "Paid (via StatusMatch.com)",
+    difficulty: "easy",
+    requirements: [
+      "Existing elite status from 45+ airlines OR 20+ hotel programs",
+      "KM Rewards account",
+    ],
+    eligibleFrom: [
+      { program: "any", category: "airline" },
+      { program: "any", category: "hotel" },
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.km-maltairlines.com/status-match",
+      template: `Subject: KM Rewards Status Match Request
+
+Dear KM Malta Airlines KM Rewards Team,
+
+I am requesting a status match for my KM Rewards account.
+
+Name: {name}
+KM Rewards Number: {memberId}
+Current Status: {status}
+
+Proof of my current elite status is attached.
+
+Thank you,
+{name}`,
+    },
+    tips: "Obscure Maltese carrier with surprisingly broad match: accepts 45+ airlines and 20+ hotel programs, including credit card travel rewards. Paid match via StatusMatch.com. One of the widest acceptance nets in the industry.",
+    votes: 6,
+  },
+  {
+    id: "lufthansa-ita-match",
+    program: "Lufthansa Miles & More (ITA Volare Match)",
+    category: "airline",
+    matchRate: 95,
+    cost: "Free",
+    difficulty: "easy",
+    requirements: [
+      "ITA Airways Volare elite status (any tier)",
+      "Lufthansa Miles & More account",
+      "Must apply before February 28, 2027",
+    ],
+    eligibleFrom: [
+      { program: "ITA Airways Volare", category: "airline" },
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.miles-and-more.com/status-match",
+      template: `Subject: Miles & More Status Match Request (ITA Volare)
+
+Dear Miles & More Team,
+
+I am an ITA Airways Volare elite member requesting the exclusive status match.
+
+Name: {name}
+Miles & More Number: {memberId}
+ITA Volare Status: {status}
+
+Proof of my ITA Volare status is attached.
+
+Thank you,
+{name}`,
+    },
+    tips: "Free, exclusive match for ITA Airways Volare members. Direct path to Star Alliance Gold valid through February 2027. One of the best-kept secrets in status matching. Apply before Feb 28, 2027 deadline.",
+    votes: 10,
+  },
+  {
+    id: "citizenm",
+    program: "citizenM+ Membership",
+    category: "hotel",
+    matchRate: 85,
+    cost: "Free",
+    difficulty: "easy",
+    requirements: [
+      "Existing elite status from any major hotel OR airline program",
+      "citizenM+ account (free signup)",
+    ],
+    eligibleFrom: [
+      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+      { program: "Marriott Bonvoy", tier: "Gold Elite", category: "hotel" },
+      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+      { program: "IHG One Rewards", tier: "Platinum Elite", category: "hotel" },
+      { program: "World of Hyatt", tier: "Globalist", category: "hotel" },
+      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+      { program: "United Airlines MileagePlus", tier: "Premier Silver", category: "airline" },
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.citizenm.com/status-match",
+      template: `Subject: citizenM+ Status Match Request
+
+Dear citizenM+ Team,
+
+I am requesting a status match for my citizenM+ account.
+
+Name: {name}
+citizenM+ Member ID: {memberId}
+Current Status: {status}
+
+Proof of my current elite status is attached.
+
+Thank you,
+{name}`,
+    },
+    tips: "Up-and-coming design-forward boutique hotel chain actively courting loyalty switchers. Accepts both hotel AND airline elite status. Under-reported in mainstream status match roundups. Properties in major European and US cities.",
+    votes: 5,
+  },
+  {
     id: "virgin-voyages",
     program: "Virgin Voyages Blue Extras",
     category: "cruise",
