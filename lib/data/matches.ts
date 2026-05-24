@@ -1233,6 +1233,39 @@ Proof attached. Thank you.
     votes: 12,
   },
   {
+    id: "avelo-airlines",
+    program: "Avelo Airlines (Spirit Elite Match)",
+    category: "airline",
+    matchRate: 95,
+    cost: "Free",
+    difficulty: "easy",
+    requirements: [
+      "Previous Spirit Airlines Free Spirit elite status",
+      "Spirit Saver$ Club membership",
+      "Avelo account",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.aveloair.com/status-match",
+      template: `Subject: Avelo Plus Status Match Request
+
+Dear Avelo Team,
+
+I am a former Spirit Airlines elite member requesting the Avelo Plus status match.
+
+Name: {name}
+Former Spirit Free Spirit Status: {status}
+Spirit Saver$ Club Member: Yes
+
+Proof of my former Spirit elite status is attached.
+
+Thank you,
+{name}`,
+    },
+    tips: "Special match for displaced Spirit elites. Spirit ceased operations. Free match to Avelo Plus. Apply by May 31. Southwest and JetBlue also accept former Spirit elites for status matches.",
+    votes: 8,
+  },
+  {
     id: "virgin-voyages",
     program: "Virgin Voyages Blue Extras",
     category: "cruise",
