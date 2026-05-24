@@ -228,9 +228,9 @@ Best regards,
     cost: "Free",
     difficulty: "medium",
     requirements: [
-      "Existing top-tier hotel status (Diamond from another chain)",
+      "Existing elite status from Marriott, IHG, Accor, Hyatt, Best Western, Choice, Wyndham, or Radisson",
       "Hilton Honors account",
-      "Status proof screenshot",
+      "Proof of a recent stay with the competing program (past 12-24 months)",
     ],
     howToApply: {
       method: "web_form",
@@ -250,7 +250,7 @@ I have attached proof of my current elite status.
 Thank you,
 {name}`,
     },
-    tips: "Hilton is selective. Higher success with top-tier status from Marriott, IHG, or Hyatt. May offer a challenge instead of instant match.",
+    tips: "Instant 90-day Gold trial upon approval. Stay 6 nights in 90 days = keep Gold through March 2028. Stay 12 nights = upgrade to Diamond through March 2028. Best hotel status match value in the industry.",
     votes: 62,
   },
   {
