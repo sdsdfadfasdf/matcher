@@ -1266,6 +1266,71 @@ Thank you,
     votes: 8,
   },
   {
+    id: "tap-portugal",
+    program: "TAP Air Portugal Miles&Go",
+    category: "airline",
+    matchRate: 70,
+    cost: "Free",
+    difficulty: "easy",
+    requirements: [
+      "Existing airline elite status from any Star Alliance or competitor program",
+      "TAP Miles&Go account",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.flytap.com/en-us/miles-and-go/status-match",
+      template: `Subject: TAP Miles&Go Status Match Request
+
+Dear TAP Miles&Go Team,
+
+I am requesting a status match for my Miles&Go account.
+
+Name: {name}
+Miles&Go Number: {memberId}
+Current Status: {status}
+
+Proof of my current elite status is attached.
+
+Obrigado,
+{name}`,
+    },
+    tips: "Star Alliance member. Ongoing status match. Status recognized across all Star Alliance airlines including United, Lufthansa, Singapore Airlines. Good redemption value for TAP flights to Europe and Africa.",
+    votes: 25,
+  },
+  {
+    id: "omni-hotels",
+    program: "Omni Select Guest (via FoundersCard)",
+    category: "hotel",
+    matchRate: 90,
+    cost: "Free (via JetBlue Mosaic bridge)",
+    difficulty: "medium",
+    requirements: [
+      "JetBlue Mosaic status (free FoundersCard Blue included)",
+      "OR direct FoundersCard membership",
+      "Omni Select Guest account",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.omnihotels.com/select-guest",
+      template: `Subject: Omni Select Guest Status Match via FoundersCard
+
+Dear Omni Select Guest Team,
+
+I am requesting Champion status via my FoundersCard membership.
+
+Name: {name}
+Omni Select Guest Number: {memberId}
+Current FoundersCard Membership: Active
+
+Proof of FoundersCard membership is attached.
+
+Thank you,
+{name}`,
+    },
+    tips: "Creative chain: JetBlue Mosaic = free FoundersCard Blue = Omni Select Guest Champion for 1 year. Omni is a premium independent hotel chain with properties in major US cities. Free bottled water, Wi-Fi, and morning beverage delivery.",
+    votes: 8,
+  },
+  {
     id: "virgin-voyages",
     program: "Virgin Voyages Blue Extras",
     category: "cruise",
