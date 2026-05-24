@@ -775,6 +775,205 @@ Thank you,
     tips: "Marked as 'M' (likely to match) on StatusMatcher. Southwest has no assigned seats but elite status provides priority boarding and bonus points.",
     votes: 24,
   },
+  {
+    id: "delta-airlines",
+    program: "Delta Air Lines Medallion Challenge",
+    category: "airline",
+    matchRate: 70,
+    cost: "Free",
+    difficulty: "medium",
+    requirements: [
+      "Existing elite status from a major domestic or international airline",
+      "Delta SkyMiles account",
+      "At least 1 Delta flight (non-Basic) in past 3 years",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.delta.com/status-match",
+      template: `Subject: Delta Medallion Status Match Challenge Request
+
+Dear Delta SkyMiles Team,
+
+I am requesting a Medallion Status Match Challenge.
+
+Name: {name}
+SkyMiles Number: {memberId}
+Current Status: {status}
+
+Proof of my current elite status with another airline is attached. I understand this is a challenge requiring qualifying activity within the trial period.
+
+Thank you,
+{name}`,
+    },
+    tips: "3-month trial with MQD-based challenge: Silver (1,250 MQDs), Gold (2,500 MQDs), Platinum (3,750 MQDs). Status earned in 2026 extends through Jan 2028. Cannot have participated 2023-2026.",
+    votes: 95,
+  },
+  {
+    id: "american-airlines",
+    program: "American Airlines Instant Status Pass",
+    category: "airline",
+    matchRate: 75,
+    cost: "Free",
+    difficulty: "medium",
+    requirements: [
+      "Existing elite status from Delta, United, JetBlue, or Southwest",
+      "AAdvantage account",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.aa.com/instant-status-pass",
+      template: `Subject: Instant Status Pass Request
+
+Dear AAdvantage Team,
+
+I am requesting the Instant Status Pass challenge.
+
+Name: {name}
+AAdvantage Number: {memberId}
+Current Status: {status}
+
+I understand this is a 3-phase challenge over 12 months with Loyalty Point targets per phase.
+
+Thank you,
+{name}`,
+    },
+    tips: "12-month program in 3 phases. LPs can be earned via credit card spend and eShopping, not just flying. Can match up to Executive Platinum. Re-enroll every 2 years.",
+    votes: 68,
+  },
+  {
+    id: "virgin-atlantic",
+    program: "Virgin Atlantic Flying Club",
+    category: "airline",
+    matchRate: 65,
+    cost: "Free (booking required)",
+    difficulty: "medium",
+    requirements: [
+      "Existing elite status from a non-SkyTeam airline",
+      "Flying Club account",
+      "Future paid Virgin Atlantic booking (any cabin for Silver, Premium/Upper for Gold)",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.virginatlantic.com/status-match",
+      template: `Subject: Flying Club Status Match Request
+
+Dear Virgin Atlantic Flying Club Team,
+
+I am requesting a status match for my Flying Club account.
+
+Name: {name}
+Flying Club Number: {memberId}
+Current Status: {status}
+
+I have a future booking with Virgin Atlantic and am happy to provide those details.
+
+Thank you,
+{name}`,
+    },
+    tips: "Matches to Silver or Gold for 12 months. Silver extension needs 400 tier points, Gold needs 1,000. Not available to SkyTeam partner elite holders or those who matched in past 5 years.",
+    votes: 32,
+  },
+  {
+    id: "worldhotels",
+    program: "WorldHotels Rewards",
+    category: "hotel",
+    matchRate: 100,
+    cost: "Free",
+    difficulty: "easy",
+    requirements: [
+      "Existing hotel elite status from any competing program",
+      "WorldHotels Rewards account",
+      "Full name, address, email, phone",
+    ],
+    howToApply: {
+      method: "email",
+      email: "statusmatch@bwhhotelgroup.com",
+      url: "https://www.worldhotels.com/en_US/rewards/status-match.html",
+      template: `Subject: WorldHotels Rewards Status Match Request
+
+Dear WorldHotels Rewards Team,
+
+I am requesting a status match under your "Status Match...No Catch" program.
+
+Name: {name}
+Address: [Your Address]
+Email: [Your Email]
+Phone: [Your Phone]
+WorldHotels Rewards Number: {memberId}
+Current Elite Status: {status}
+
+Proof of my current elite status is attached.
+
+Thank you,
+{name}`,
+    },
+    tips: "100% success rate via 'Status Match...No Catch' program. Matches to Gold, Platinum, Diamond, or Diamond Select. Valid through Dec 2027 for matches earned in 2026.",
+    votes: 22,
+  },
+  {
+    id: "gha-discovery",
+    program: "GHA DISCOVERY",
+    category: "hotel",
+    matchRate: 80,
+    cost: "Free (via Visa Infinite / World Elite MC)",
+    difficulty: "easy",
+    requirements: [
+      "Existing hotel elite status OR Visa Infinite / World Elite Mastercard",
+      "GHA DISCOVERY account",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.ghadiscovery.com/status-match",
+      template: `Subject: GHA DISCOVERY Status Match Request
+
+Dear GHA DISCOVERY Team,
+
+I am requesting a status match for my GHA DISCOVERY account.
+
+Name: {name}
+GHA DISCOVERY Number: {memberId}
+Current Status: {status}
+
+Proof of my current elite status is attached. I also hold a Visa Infinite / World Elite Mastercard which qualifies for the free tier match.
+
+Thank you,
+{name}`,
+    },
+    tips: "Paid match costs $100-150 but is free via Visa Infinite or World Elite Mastercard. Covers luxury independent hotels like Kempinski, Pan Pacific, Anantara.",
+    votes: 28,
+  },
+  {
+    id: "club-avolta",
+    program: "Club Avolta (Airport Shopping)",
+    category: "hotel",
+    matchRate: 90,
+    cost: "Free",
+    difficulty: "easy",
+    requirements: [
+      "Existing airline or hotel elite status",
+      "Club Avolta account (free signup)",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.clubavolta.com/status-match",
+      template: `Subject: Club Avolta Status Match Request
+
+Dear Club Avolta Team,
+
+I am requesting a status match to Platinum Elite.
+
+Name: {name}
+Club Avolta Member Number: {memberId}
+Current Status: {status}
+
+Proof of my current elite status is attached.
+
+Thank you,
+{name}`,
+    },
+    tips: "Unique perk program: matches airline/hotel elite to Platinum for up to 10% off airport shopping and 5% off food/drink at thousands of airport locations worldwide.",
+    votes: 15,
+  },
 
   // ── AUTO RENTALS ───────────────────────────────
   {
