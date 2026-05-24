@@ -7,11 +7,20 @@ import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { EmailModal } from "@/components/ui/EmailModal"
 import { cn, formatPercent, easeLabel, easeColor, easeBg, rateColor, rateBorder } from "@/lib/utils"
+import { findEligibleSources } from "@/lib/eligibility"
+import { useFilters } from "@/lib/store"
 import type { Match } from "@/lib/data/matches"
 
 export function MatchCard({ match }: { match: Match }) {
   const [expanded, setExpanded] = useState(false)
   const [emailOpen, setEmailOpen] = useState(false)
+  const eligibilityMode = useFilters((s) => s.eligibilityMode)
+  const memberships = useFilters((s) => s.memberships)
+
+  const eligibleSources =
+    eligibilityMode && memberships.length > 0
+      ? findEligibleSources(match, memberships)
+      : []
 
   const d = match.difficulty
 
@@ -104,6 +113,21 @@ export function MatchCard({ match }: { match: Match }) {
                 ))}
               </ul>
             </div>
+
+            {eligibleSources && eligibleSources.length > 0 && (
+              <div className="mb-4 rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-3">
+                <h4 className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">
+                  You Qualify Via
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {eligibleSources.map((s, i) => (
+                    <Badge key={i} variant="emerald">
+                      {s.program}{s.tier ? ` (${s.tier})` : ""}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">

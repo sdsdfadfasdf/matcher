@@ -1,5 +1,11 @@
 export type MatchCategory = "airline" | "hotel" | "auto" | "cruise"
 
+export type EligibleSource = {
+  program: string
+  tier?: string
+  category: MatchCategory
+}
+
 export type Match = {
   id: string
   program: string
@@ -8,6 +14,7 @@ export type Match = {
   cost: string
   difficulty: "easy" | "medium" | "hard"
   requirements: string[]
+  eligibleFrom?: EligibleSource[]
   howToApply: {
     method: "email" | "web_form" | "both"
     email?: string
@@ -33,7 +40,25 @@ export const matches: Match[] = [
       "Full name and BWR member number",
       "Phone number",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Gold Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Titanium Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Platinum Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Diamond Elite", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Globalist", category: "hotel" },
+	      { program: "Wyndham Rewards", tier: "Diamond", category: "hotel" },
+	      { program: "Choice Privileges", tier: "Diamond", category: "hotel" },
+	      { program: "Radisson Rewards", tier: "VIP", category: "hotel" },
+	      { program: "Accor ALL", tier: "Platinum", category: "hotel" },
+	      { program: "Accor ALL", tier: "Diamond", category: "hotel" },
+	      { program: "GHA DISCOVERY", tier: "Platinum", category: "hotel" },
+	      { program: "GHA DISCOVERY", tier: "Black", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Explorist", category: "hotel" },
+	    ],
+	    howToApply: {
       method: "email",
       email: "statusmatch@bestwestern.com",
       url: "https://new.bestwestern.com/en_US/best-western-rewards/status-match.html",
@@ -70,7 +95,13 @@ Best regards,
       "Existing hotel elite status",
       "ASCOTT member account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Titanium Elite", category: "hotel" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.discoverasr.com/en/statusmatch",
       template: `Subject: Status Match Request - Ascott The Residence
@@ -102,7 +133,15 @@ Thank you,
       "Existing hotel elite status proof",
       "Sonesta Travel Pass account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Platinum Elite", category: "hotel" },
+	      { program: "Best Western Rewards", tier: "Diamond Select", category: "hotel" },
+	      { program: "Wyndham Rewards", tier: "Diamond", category: "hotel" },
+	    ],
+	    howToApply: {
       method: "email",
       email: "travelpass@sonesta.com",
       template: `Subject: Sonesta Travel Pass Status Match Request
@@ -135,7 +174,20 @@ Best regards,
       "Wyndham Rewards account",
       "Screenshot of current status card",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Gold Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Titanium Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Platinum Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Diamond Elite", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Globalist", category: "hotel" },
+	      { program: "Best Western Rewards", tier: "Diamond", category: "hotel" },
+	      { program: "Choice Privileges", tier: "Diamond", category: "hotel" },
+	      { program: "Radisson Rewards", tier: "VIP", category: "hotel" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.wyndhamhotels.com/wyndham-rewards/status-match",
       template: `Subject: Wyndham Rewards Status Match
@@ -167,7 +219,16 @@ Thank you,
       "Existing hotel elite status",
       "Radisson Rewards account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Platinum Elite", category: "hotel" },
+	      { program: "Best Western Rewards", tier: "Diamond", category: "hotel" },
+	      { program: "Wyndham Rewards", tier: "Diamond", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Globalist", category: "hotel" },
+	    ],
+	    howToApply: {
       method: "email",
       email: "statusmatch@radissonhotelsamericas.com",
       template: `Subject: Status Match Request
@@ -199,7 +260,16 @@ Thank you,
       "Existing hotel elite status",
       "Choice Privileges account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Platinum Elite", category: "hotel" },
+	      { program: "Wyndham Rewards", tier: "Diamond", category: "hotel" },
+	      { program: "Best Western Rewards", tier: "Diamond", category: "hotel" },
+	      { program: "Radisson Rewards", tier: "VIP", category: "hotel" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.choicehotels.com/choice-privileges/status-match",
       template: `Subject: Choice Privileges Status Match
@@ -232,7 +302,24 @@ Best regards,
       "Hilton Honors account",
       "Proof of a recent stay with the competing program (past 12-24 months)",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Titanium Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Ambassador Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Platinum Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Diamond Elite", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Globalist", category: "hotel" },
+	      { program: "Accor ALL", tier: "Platinum", category: "hotel" },
+	      { program: "Accor ALL", tier: "Diamond", category: "hotel" },
+	      { program: "Best Western Rewards", tier: "Diamond", category: "hotel" },
+	      { program: "Best Western Rewards", tier: "Diamond Select", category: "hotel" },
+	      { program: "Wyndham Rewards", tier: "Diamond", category: "hotel" },
+	      { program: "Choice Privileges", tier: "Diamond", category: "hotel" },
+	      { program: "Radisson Rewards", tier: "VIP", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Gold Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Gold Elite", category: "hotel" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.hilton.com/en/hilton-honors/status-match/",
       template: `Subject: Hilton Honors Status Match Request
@@ -264,7 +351,13 @@ Thank you,
       "Top-tier status from competitor (Hilton Diamond, IHG Platinum Elite, etc.)",
       "Marriott Bonvoy account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Diamond Elite", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Globalist", category: "hotel" },
+	      { program: "Accor ALL", tier: "Diamond", category: "hotel" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://status-match.marriott.com/",
       template: `Subject: Marriott Bonvoy Status Match Request
@@ -327,7 +420,13 @@ Proof attached. Thank you.
       "Top-tier status from major competitor",
       "IHG One Rewards account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Titanium Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Ambassador Elite", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Globalist", category: "hotel" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.ihg.com/onerewards/status-match",
       template: `Subject: IHG One Rewards Status Match Request
@@ -363,7 +462,15 @@ Thank you,
       "Screenshot of existing status card from another airline",
       "Recent flight activity (last 2 months)",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Alaska Airlines Mileage Plan", tier: "MVP Gold", category: "airline" },
+	      { program: "Air France / KLM Flying Blue", tier: "Gold", category: "airline" },
+	      { program: "Air France / KLM Flying Blue", tier: "Platinum", category: "airline" },
+	      { program: "Lufthansa Miles & More", tier: "Senator", category: "airline" },
+	      { program: "Qatar Airways Privilege Club", tier: "Gold", category: "airline" },
+	      { program: "Qatar Airways Privilege Club", tier: "Platinum", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.turkishairlines.com/en-int/feedback/",
       template: `Subject: Miles & Smiles Status Match Request
@@ -404,7 +511,10 @@ Best regards,
       "Existing airline elite status",
       "Payment of €128",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "any", tier: undefined, category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://rj.statusmatch.com/",
       template: `Subject: Royal Club Status Match
@@ -434,7 +544,19 @@ Thank you,
       "MileagePlus account",
       "Screenshot of current status card",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Delta Air Lines SkyMiles", tier: "Silver Medallion", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Platinum Medallion", category: "airline" },
+	      { program: "American Airlines AAdvantage", tier: "Gold", category: "airline" },
+	      { program: "American Airlines AAdvantage", tier: "Platinum", category: "airline" },
+	      { program: "Southwest Airlines Rapid Rewards", tier: "A-List", category: "airline" },
+	      { program: "Alaska Airlines Mileage Plan", tier: "MVP Gold", category: "airline" },
+	      { program: "British Airways Executive Club", tier: "Silver", category: "airline" },
+	      { program: "British Airways Executive Club", tier: "Gold", category: "airline" },
+	      { program: "Virgin Atlantic Flying Club", tier: "Gold", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.united.com/en/us/status-match",
       template: `Subject: MileagePlus Status Match Request
@@ -466,7 +588,15 @@ Thank you,
       "Existing airline elite status",
       "Flying Blue account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Platinum Medallion", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Gold", category: "airline" },
+	      { program: "American Airlines AAdvantage", tier: "Platinum", category: "airline" },
+	      { program: "British Airways Executive Club", tier: "Silver", category: "airline" },
+	      { program: "British Airways Executive Club", tier: "Gold", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.flyingblue.com/en/status-match",
       template: `Subject: Flying Blue Status Match Request
@@ -499,7 +629,12 @@ Merci,
       "KrisFlyer account",
       "Status proof screenshot",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "United Airlines MileagePlus", tier: "Premier Gold", category: "airline" },
+	      { program: "Lufthansa Miles & More", tier: "Senator", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.singaporeair.com/status-match",
       template: `Subject: KrisFlyer Status Match Request
@@ -628,7 +763,14 @@ Proof attached. Thank you.
       "Existing airline elite status",
       "TrueBlue account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Delta Air Lines SkyMiles", tier: "Silver Medallion", category: "airline" },
+	      { program: "American Airlines AAdvantage", tier: "Gold", category: "airline" },
+	      { program: "Southwest Airlines Rapid Rewards", tier: "A-List", category: "airline" },
+	      { program: "Alaska Airlines Mileage Plan", tier: "MVP", category: "airline" },
+	      { program: "Frontier Airlines FRONTIER Miles", tier: "Elite Gold", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.jetblue.com/status-match",
       template: `Subject: TrueBlue Mosaic Status Match
@@ -659,7 +801,16 @@ Proof attached. Thank you for your consideration.
       "Existing airline elite status",
       "Mileage Plan account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Delta Air Lines SkyMiles", tier: "Silver Medallion", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Silver", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Gold", category: "airline" },
+	      { program: "Southwest Airlines Rapid Rewards", tier: "A-List", category: "airline" },
+	      { program: "JetBlue TrueBlue", tier: "Mosaic 1", category: "airline" },
+	      { program: "Frontier Airlines FRONTIER Miles", tier: "Elite Gold", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.alaskaair.com/status-match",
       template: `Subject: Mileage Plan Status Match Request
@@ -723,7 +874,13 @@ Gracias,
       "Existing airline elite status",
       "FRONTIER Miles account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Southwest Airlines Rapid Rewards", tier: "A-List", category: "airline" },
+	      { program: "JetBlue TrueBlue", tier: "Mosaic 1", category: "airline" },
+	      { program: "Alaska Airlines Mileage Plan", tier: "MVP", category: "airline" },
+	      { program: "Spirit Airlines Free Spirit", tier: "Silver", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.flyfrontier.com/status-match",
       template: `Subject: FRONTIER Miles Status Match
@@ -755,7 +912,17 @@ Proof attached. Thank you.
       "Privilege Club account",
       "Photo of physical membership card and mileage report",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Globalist", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Diamond Elite", category: "hotel" },
+	      { program: "Accor ALL", tier: "Platinum", category: "hotel" },
+	      { program: "Accor ALL", tier: "Diamond", category: "hotel" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Gold", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.qatarairways.com/privilege-club/status-match",
       template: `Subject: Privilege Club Status Match Request
@@ -788,7 +955,11 @@ Thank you,
       "Accor ALL account",
       "Must link Qatar Airways and Accor accounts",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Qatar Airways Privilege Club", tier: "Gold", category: "airline" },
+	      { program: "Qatar Airways Privilege Club", tier: "Platinum", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://all.accor.com/loyalty-program/status-match/",
       template: `Subject: Accor ALL Status Match Request
@@ -820,7 +991,17 @@ Thank you,
       "Existing airline elite status",
       "Rapid Rewards account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Delta Air Lines SkyMiles", tier: "Silver Medallion", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+	      { program: "American Airlines AAdvantage", tier: "Gold", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Silver", category: "airline" },
+	      { program: "Alaska Airlines Mileage Plan", tier: "MVP", category: "airline" },
+	      { program: "JetBlue TrueBlue", tier: "Mosaic 1", category: "airline" },
+	      { program: "Spirit Airlines Free Spirit", tier: "Silver", category: "airline" },
+	      { program: "Spirit Airlines Free Spirit", tier: "Gold", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.southwest.com/status-match",
       template: `Subject: Rapid Rewards Status Match Request
@@ -853,7 +1034,16 @@ Thank you,
       "Delta SkyMiles account",
       "At least 1 Delta flight (non-Basic) in past 3 years",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "American Airlines AAdvantage", tier: "Gold", category: "airline" },
+	      { program: "American Airlines AAdvantage", tier: "Platinum", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Silver", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Gold", category: "airline" },
+	      { program: "Southwest Airlines Rapid Rewards", tier: "A-List", category: "airline" },
+	      { program: "JetBlue TrueBlue", tier: "Mosaic 1", category: "airline" },
+	      { program: "Alaska Airlines Mileage Plan", tier: "MVP Gold", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.delta.com/status-match",
       template: `Subject: Delta Medallion Status Match Challenge Request
@@ -885,7 +1075,15 @@ Thank you,
       "Existing elite status from Delta, United, JetBlue, or Southwest",
       "AAdvantage account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Delta Air Lines SkyMiles", tier: "Silver Medallion", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Silver", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Gold", category: "airline" },
+	      { program: "JetBlue TrueBlue", tier: "Mosaic 1", category: "airline" },
+	      { program: "Southwest Airlines Rapid Rewards", tier: "A-List", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.aa.com/instant-status-pass",
       template: `Subject: Instant Status Pass Request
@@ -918,7 +1116,15 @@ Thank you,
       "Flying Club account",
       "Future paid Virgin Atlantic booking (any cabin for Silver, Premium/Upper for Gold)",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "United Airlines MileagePlus", tier: "Premier Silver", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Gold", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+	      { program: "American Airlines AAdvantage", tier: "Platinum", category: "airline" },
+	      { program: "British Airways Executive Club", tier: "Silver", category: "airline" },
+	      { program: "British Airways Executive Club", tier: "Gold", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.virginatlantic.com/status-match",
       template: `Subject: Flying Club Status Match Request
@@ -951,7 +1157,17 @@ Thank you,
       "WorldHotels Rewards account",
       "Full name, address, email, phone",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Platinum Elite", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Globalist", category: "hotel" },
+	      { program: "Best Western Rewards", tier: "Diamond", category: "hotel" },
+	      { program: "Wyndham Rewards", tier: "Diamond", category: "hotel" },
+	      { program: "Radisson Rewards", tier: "VIP", category: "hotel" },
+	    ],
+	    howToApply: {
       method: "email",
       email: "statusmatch@bwhhotelgroup.com",
       url: "https://www.worldhotels.com/en_US/rewards/status-match.html",
@@ -987,7 +1203,14 @@ Thank you,
       "Existing hotel elite status OR Visa Infinite / World Elite Mastercard",
       "GHA DISCOVERY account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Platinum Elite", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Globalist", category: "hotel" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.ghadiscovery.com/status-match",
       template: `Subject: GHA DISCOVERY Status Match Request
@@ -1019,7 +1242,19 @@ Thank you,
       "Existing airline or hotel elite status",
       "Club Avolta account (free signup)",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Gold Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Silver", category: "airline" },
+	      { program: "American Airlines AAdvantage", tier: "Gold", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Silver Medallion", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Gold", category: "airline" },
+	      { program: "American Airlines AAdvantage", tier: "Platinum", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.clubavolta.com/status-match",
       template: `Subject: Club Avolta Status Match Request
@@ -1054,7 +1289,19 @@ Thank you,
       "National Emerald Club account",
       "Screenshot of existing status",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Gold Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Silver", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Silver Medallion", category: "airline" },
+	      { program: "American Airlines AAdvantage", tier: "Gold", category: "airline" },
+	      { program: "Hertz Gold Plus Rewards", tier: "Five Star", category: "auto" },
+	      { program: "Hertz Gold Plus Rewards", tier: "President's Circle", category: "auto" },
+	      { program: "Avis Preferred", tier: "Preferred Plus", category: "auto" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://status.emeraldclub.com",
       template: `Subject: Emerald Club Status Match
@@ -1084,7 +1331,18 @@ Thank you,
       "Existing status from any hotel, airline, or competitor car rental program",
       "Sixt account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Gold Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "Hertz Gold Plus Rewards", tier: "Five Star", category: "auto" },
+	      { program: "National Emerald Club", tier: "Executive", category: "auto" },
+	      { program: "Avis Preferred", tier: "Preferred Plus", category: "auto" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Silver Medallion", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Silver", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.sixt.com/status-match",
       template: `Subject: Sixt Status Match
@@ -1116,7 +1374,13 @@ Thank you,
       "Existing elite status (hotel, airline, or rental car)",
       "Enterprise Plus account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hertz Gold Plus Rewards", tier: "Five Star", category: "auto" },
+	      { program: "Hertz Gold Plus Rewards", tier: "President's Circle", category: "auto" },
+	      { program: "National Emerald Club", tier: "Executive Elite", category: "auto" },
+	      { program: "Avis Preferred", tier: "President's Club", category: "auto" },
+	    ],
+	    howToApply: {
       method: "email",
       email: "enterpriseplus@enterprise.com",
       template: `Subject: Enterprise Plus Status Match Request
@@ -1148,7 +1412,13 @@ Thank you,
       "Existing elite status",
       "Avis Preferred account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hertz Gold Plus Rewards", tier: "Five Star", category: "auto" },
+	      { program: "Hertz Gold Plus Rewards", tier: "President's Circle", category: "auto" },
+	      { program: "National Emerald Club", tier: "Executive", category: "auto" },
+	      { program: "National Emerald Club", tier: "Executive Elite", category: "auto" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.avis.com/en/status-match",
       template: `Subject: Avis Preferred Status Match
@@ -1180,7 +1450,13 @@ Thank you,
       "Existing top-tier status",
       "Hertz Gold Plus account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Avis Preferred", tier: "Preferred Plus", category: "auto" },
+	      { program: "Avis Preferred", tier: "President's Club", category: "auto" },
+	      { program: "National Emerald Club", tier: "Executive", category: "auto" },
+	      { program: "National Emerald Club", tier: "Executive Elite", category: "auto" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.hertz.com/status-match",
       template: `Subject: Hertz Status Match Request
@@ -1244,7 +1520,11 @@ Proof attached. Thank you.
       "Spirit Saver$ Club membership",
       "Avelo account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Spirit Airlines Free Spirit", tier: "Silver", category: "airline" },
+	      { program: "Spirit Airlines Free Spirit", tier: "Gold", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.aveloair.com/status-match",
       template: `Subject: Avelo Plus Status Match Request
@@ -1276,7 +1556,15 @@ Thank you,
       "Existing airline elite status from any Star Alliance or competitor program",
       "TAP Miles&Go account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "United Airlines MileagePlus", tier: "Premier Silver", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Gold", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Silver Medallion", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+	      { program: "Lufthansa Miles & More", tier: "Frequent Traveller", category: "airline" },
+	      { program: "Lufthansa Miles & More", tier: "Senator", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.flytap.com/en-us/miles-and-go/status-match",
       template: `Subject: TAP Miles&Go Status Match Request
@@ -1309,7 +1597,12 @@ Obrigado,
       "OR direct FoundersCard membership",
       "Omni Select Guest account",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "JetBlue TrueBlue", tier: "Mosaic 1", category: "airline" },
+	      { program: "JetBlue TrueBlue", tier: "Mosaic 2", category: "airline" },
+	      { program: "JetBlue TrueBlue", tier: "Mosaic 3", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.omnihotels.com/select-guest",
       template: `Subject: Omni Select Guest Status Match via FoundersCard
@@ -1342,7 +1635,23 @@ Thank you,
       "Book a Virgin Voyages sailing by application deadline",
       "New booking only (not existing reservations)",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Hilton Honors", tier: "Gold", category: "hotel" },
+	      { program: "Hilton Honors", tier: "Diamond", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Platinum Elite", category: "hotel" },
+	      { program: "Marriott Bonvoy", tier: "Titanium Elite", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Discoverist", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Explorist", category: "hotel" },
+	      { program: "World of Hyatt", tier: "Globalist", category: "hotel" },
+	      { program: "IHG One Rewards", tier: "Platinum Elite", category: "hotel" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Gold Medallion", category: "airline" },
+	      { program: "Delta Air Lines SkyMiles", tier: "Platinum Medallion", category: "airline" },
+	      { program: "American Airlines AAdvantage", tier: "Platinum", category: "airline" },
+	      { program: "United Airlines MileagePlus", tier: "Premier Silver", category: "airline" },
+	      { program: "Virgin Atlantic Flying Club", tier: "Silver", category: "airline" },
+	      { program: "Virgin Atlantic Flying Club", tier: "Gold", category: "airline" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.virginvoyages.com/status-match",
       template: `Subject: Virgin Voyages Status Match Request
@@ -1374,7 +1683,22 @@ Thank you,
       "New PONANT booking",
       "Book by May 31, 2026 (current window)",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Norwegian Cruise Line Latitudes", tier: "Platinum", category: "cruise" },
+	      { program: "Norwegian Cruise Line Latitudes", tier: "Sapphire", category: "cruise" },
+	      { program: "MSC Voyagers Club", tier: "Silver", category: "cruise" },
+	      { program: "MSC Voyagers Club", tier: "Gold", category: "cruise" },
+	      { program: "MSC Voyagers Club", tier: "Diamond", category: "cruise" },
+	      { program: "Princess Cruises Captain's Circle", tier: "Platinum", category: "cruise" },
+	      { program: "Princess Cruises Captain's Circle", tier: "Elite", category: "cruise" },
+	      { program: "Celebrity Cruises Captain's Club", tier: "Elite", category: "cruise" },
+	      { program: "Celebrity Cruises Captain's Club", tier: "Elite Plus", category: "cruise" },
+	      { program: "Royal Caribbean Crown & Anchor", tier: "Diamond", category: "cruise" },
+	      { program: "Royal Caribbean Crown & Anchor", tier: "Diamond Plus", category: "cruise" },
+	      { program: "Holland America Mariner Society", tier: "3-Star", category: "cruise" },
+	      { program: "Holland America Mariner Society", tier: "4-Star", category: "cruise" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://en.ponant.com/benefit-from-the-status-match",
       template: `Subject: PONANT Status Match Request
@@ -1405,7 +1729,13 @@ Thank you,
       "Elite status with Royal Caribbean, Celebrity, or Silversea",
       "Loyalty account on the target brand",
     ],
-    howToApply: {
+	    eligibleFrom: [
+	      { program: "Royal Caribbean Crown & Anchor", tier: "Diamond", category: "cruise" },
+	      { program: "Royal Caribbean Crown & Anchor", tier: "Diamond Plus", category: "cruise" },
+	      { program: "Celebrity Cruises Captain's Club", tier: "Elite", category: "cruise" },
+	      { program: "Celebrity Cruises Captain's Club", tier: "Elite Plus", category: "cruise" },
+	    ],
+	    howToApply: {
       method: "web_form",
       url: "https://www.royalcaribbean.com/loyalty/status-match",
       template: `Subject: Royal Caribbean Group Loyalty Status Match

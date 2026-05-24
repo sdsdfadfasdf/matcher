@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import { LayoutGrid, List } from "lucide-react"
+import { LayoutGrid, List, UserCheck, Globe } from "lucide-react"
 import { Header } from "@/components/layout/Header"
 import { StatsBar } from "@/components/dashboard/StatsBar"
 import { CategoryFilter } from "@/components/dashboard/CategoryFilter"
@@ -9,8 +9,9 @@ import { DifficultyFilter } from "@/components/dashboard/DifficultyFilter"
 import { SearchBar } from "@/components/dashboard/SearchBar"
 import { MatchGrid } from "@/components/dashboard/MatchGrid"
 import { RankingTable } from "@/components/dashboard/RankingTable"
-import { Button } from "@/components/ui/Button"
+import { MembershipSelector } from "@/components/dashboard/MembershipSelector"
 import { matches } from "@/lib/data/matches"
+import { filterEligible } from "@/lib/eligibility"
 import { useFilters, type SortKey } from "@/lib/store"
 
 const easeWeights: Record<string, number> = { easy: 1, medium: 0.6, hard: 0.3 }
@@ -38,11 +39,14 @@ export default function Home() {
   const sort = useFilters((s) => s.sort)
   const search = useFilters((s) => s.search)
   const view = useFilters((s) => s.view)
+  const eligibilityMode = useFilters((s) => s.eligibilityMode)
+  const memberships = useFilters((s) => s.memberships)
   const setSort = useFilters((s) => s.setSort)
   const setView = useFilters((s) => s.setView)
+  const setEligibilityMode = useFilters((s) => s.setEligibilityMode)
 
   const filtered = useMemo(() => {
-    let result = matches
+    let result = eligibilityMode ? filterEligible(matches, memberships) : matches
     if (category !== "all") result = result.filter((m) => m.category === category)
     if (difficulty !== "all") result = result.filter((m) => m.difficulty === difficulty)
     if (search) {
@@ -50,7 +54,7 @@ export default function Home() {
       result = result.filter((m) => m.program.toLowerCase().includes(q))
     }
     return sortMatches(result, sort)
-  }, [category, difficulty, sort, search])
+  }, [category, difficulty, sort, search, eligibilityMode, memberships])
 
   const sortLabels: Record<SortKey, string> = {
     ease: "Ease Score",
@@ -64,6 +68,33 @@ export default function Home() {
       <Header />
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8 space-y-6">
         <StatsBar />
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setEligibilityMode(false)}
+            className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
+              !eligibilityMode
+                ? "bg-zinc-100 text-zinc-900"
+                : "bg-zinc-800/50 text-zinc-400 hover:text-zinc-200"
+            }`}
+          >
+            <Globe className="h-4 w-4" />
+            Browse All
+          </button>
+          <button
+            onClick={() => setEligibilityMode(true)}
+            className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
+              eligibilityMode
+                ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                : "bg-zinc-800/50 text-zinc-400 hover:text-zinc-200"
+            }`}
+          >
+            <UserCheck className="h-4 w-4" />
+            My Matches
+          </button>
+        </div>
+
+        {eligibilityMode && <MembershipSelector />}
 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -100,7 +131,9 @@ export default function Home() {
 
         <div className="flex items-center justify-between">
           <p className="text-sm text-zinc-500">
-            Showing {filtered.length} of {matches.length} programs
+            {eligibilityMode && memberships.length > 0
+              ? `${filtered.length} matches available with your status`
+              : `Showing ${filtered.length} of ${matches.length} programs`}
           </p>
           <div className="flex items-center gap-1 text-xs text-zinc-500">
             <span className="mr-1">Sort by:</span>
@@ -136,7 +169,7 @@ export default function Home() {
           >
             statusmatcher.com
           </a>
-          . Match rates are based on crowd-sourced reports and may change. Always verify
+          {" "}and additional research. Match rates are based on crowd-sourced reports and may change. Always verify
           requirements directly with the program.
         </footer>
       </main>

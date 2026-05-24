@@ -9,7 +9,7 @@ export function MatchGrid({ matches }: { matches: Match[] }) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-zinc-500">
         <p className="text-lg font-medium">No matches found</p>
-        <p className="text-sm">Try changing your filters</p>
+        <p className="text-sm">Try changing your filters or adding memberships</p>
       </div>
     )
   }
