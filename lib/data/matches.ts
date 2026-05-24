@@ -1660,40 +1660,43 @@ Thank you,
     votes: 6,
   },
   {
-    id: "lufthansa-ita-match",
-    program: "Lufthansa Miles & More (ITA Volare Match)",
+    id: "lufthansa-miles-more",
+    program: "Lufthansa Miles & More Status Match",
     category: "airline",
-    matchRate: 95,
-    cost: "Free",
+    matchRate: 90,
+    cost: "Free (ITA) / €99 (BA, Iberia)",
     difficulty: "easy",
     requirements: [
-      "ITA Airways Volare elite status (any tier)",
+      "ITA Airways Volare (any tier, FREE) OR British Airways/Iberia elite status (€99 fee)",
       "Lufthansa Miles & More account",
       "Must apply before February 28, 2027",
     ],
     eligibleFrom: [
       { program: "ITA Airways Volare", category: "airline" },
+      { program: "British Airways Executive Club", tier: "Silver", category: "airline" },
+      { program: "British Airways Executive Club", tier: "Gold", category: "airline" },
+      { program: "British Airways Executive Club", tier: "Gold Guest List", category: "airline" },
     ],
     howToApply: {
       method: "web_form",
       url: "https://www.miles-and-more.com/status-match",
-      template: `Subject: Miles & More Status Match Request (ITA Volare)
+      template: `Subject: Miles & More Status Match Request
 
 Dear Miles & More Team,
 
-I am an ITA Airways Volare elite member requesting the exclusive status match.
+I am requesting a status match for my Miles & More account.
 
 Name: {name}
 Miles & More Number: {memberId}
-ITA Volare Status: {status}
+Current Status with Other Program: {status}
 
-Proof of my ITA Volare status is attached.
+Proof of my current elite status is attached.
 
 Thank you,
 {name}`,
     },
-    tips: "Free, exclusive match for ITA Airways Volare members. Direct path to Star Alliance Gold valid through February 2027. One of the best-kept secrets in status matching. Apply before Feb 28, 2027 deadline.",
-    votes: 10,
+    tips: "Two paths: ITA Volare (any tier, FREE) or BA Silver+ / Iberia (EUR 99 fee). BA Gold = Senator (Star Alliance Gold), BA Silver = Frequent Traveller (Star Alliance Silver). Status valid through Feb 2027. Available to US, UK, Canada, EU residents.",
+    votes: 25,
   },
   {
     id: "citizenm",
@@ -1736,6 +1739,42 @@ Thank you,
     },
     tips: "Up-and-coming design-forward boutique hotel chain actively courting loyalty switchers. Accepts both hotel AND airline elite status. Under-reported in mainstream status match roundups. Properties in major European and US cities.",
     votes: 5,
+  },
+  {
+    id: "kenya-airways",
+    program: "Kenya Airways Asante Rewards",
+    category: "airline",
+    matchRate: 80,
+    cost: "Paid (via StatusMatch.com)",
+    difficulty: "easy",
+    requirements: [
+      "Existing elite status from 45+ airlines OR 20+ hotel programs",
+      "Asante Rewards account",
+    ],
+    eligibleFrom: [
+      { program: "any", category: "airline" },
+      { program: "any", category: "hotel" },
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.kenya-airways.com/status-match",
+      template: `Subject: Asante Rewards Status Match Request
+
+Dear Kenya Airways Asante Rewards Team,
+
+I am requesting a status match for my Asante Rewards account.
+
+Name: {name}
+Asante Rewards Number: {memberId}
+Current Status: {status}
+
+Proof of my current elite status is attached.
+
+Thank you,
+{name}`,
+    },
+    tips: "SkyTeam member. One of few airline programs accepting hotel elite status directly as qualifying criteria. 45+ airline and 20+ hotel programs accepted. Paid match via StatusMatch.com. Gets you into SkyTeam through an African carrier.",
+    votes: 8,
   },
   {
     id: "virgin-voyages",
