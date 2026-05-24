@@ -1848,6 +1848,76 @@ Thank you,
     votes: 5,
   },
   {
+    id: "ita-airways",
+    program: "ITA Airways Volare",
+    category: "airline",
+    matchRate: 70,
+    cost: "Free",
+    difficulty: "easy",
+    requirements: [
+      "Existing airline elite status from any major carrier",
+      "ITA Airways Volare account",
+    ],
+    eligibleFrom: [
+      { program: "any", category: "airline" },
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.ita-airways.com/status-match",
+      template: `Subject: ITA Airways Volare Status Match Request
+
+Dear ITA Airways Volare Team,
+
+I am requesting a status match for my Volare account.
+
+Name: {name}
+Volare Number: {memberId}
+Current Status: {status}
+
+Proof of my current elite status is attached.
+
+Thank you,
+{name}`,
+    },
+    tips: "Marked 'M' (likely to match) on StatusMatcher. ITA is Italy's flag carrier and a SkyTeam member. Having ITA status unlocks the free Lufthansa Miles & More Star Alliance Gold match (apply before Feb 2027). Great strategic stepping stone.",
+    votes: 18,
+  },
+  {
+    id: "latam-airlines",
+    program: "LATAM Airlines LATAM Pass",
+    category: "airline",
+    matchRate: 65,
+    cost: "Free",
+    difficulty: "medium",
+    requirements: [
+      "Existing airline elite status from a major carrier",
+      "LATAM Pass account",
+    ],
+    eligibleFrom: [
+      { program: "any", category: "airline" },
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.latamairlines.com/status-match",
+      template: `Subject: LATAM Pass Status Match Request
+
+Dear LATAM Pass Team,
+
+I am requesting a status match for my LATAM Pass account.
+
+Name: {name}
+LATAM Pass Number: {memberId}
+Current Status: {status}
+
+Proof of my current elite status is attached.
+
+Gracias,
+{name}`,
+    },
+    tips: "Marked 'M' (likely to match) on StatusMatcher. LATAM is South America's largest airline. Status recognized across LATAM Group (Brazil, Chile, Peru, Colombia, Ecuador). Delta partner with reciprocal benefits.",
+    votes: 14,
+  },
+  {
     id: "virgin-voyages",
     program: "Virgin Voyages Blue Extras",
     category: "cruise",

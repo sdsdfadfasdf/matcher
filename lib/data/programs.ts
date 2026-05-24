@@ -29,6 +29,8 @@ export const knownPrograms: ProgramEntry[] = [
   { program: "ITA Airways Volare", tiers: ["Smart", "Plus", "Premium", "Executive"], category: "airline" },
   { program: "SAS EuroBonus", tiers: ["Silver", "Gold", "Diamond"], category: "airline" },
   { program: "Finnair Plus", tiers: ["Silver", "Gold", "Platinum", "Platinum Lumo"], category: "airline" },
+  { program: "LATAM Airlines LATAM Pass", tiers: ["Gold", "Platinum", "Black", "Black Signature"], category: "airline" },
+  { program: "Hawaiian Airlines HawaiianMiles", tiers: ["Gold", "Platinum", "Pualani Platinum"], category: "airline" },
 
   // Hotels
   { program: "Hilton Honors", tiers: ["Silver", "Gold", "Diamond"], category: "hotel" },
