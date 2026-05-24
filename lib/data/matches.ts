@@ -744,6 +744,72 @@ Proof attached. Thank you.
     votes: 28,
   },
   {
+    id: "qatar-airways",
+    program: "Qatar Airways Privilege Club",
+    category: "airline",
+    matchRate: 80,
+    cost: "Free",
+    difficulty: "easy",
+    requirements: [
+      "Existing airline OR hotel elite status (Accor, Hilton, Hyatt, IHG, Marriott)",
+      "Privilege Club account",
+      "Photo of physical membership card and mileage report",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.qatarairways.com/privilege-club/status-match",
+      template: `Subject: Privilege Club Status Match Request
+
+Dear Qatar Airways Privilege Club Team,
+
+I am requesting a status match for my Privilege Club account.
+
+Name: {name}
+Privilege Club Number: {memberId}
+Current Status: {status}
+
+I have attached a photo of my physical membership card and a mileage report.
+
+Thank you,
+{name}`,
+    },
+    tips: "Matches from hotel programs too (Accor, Hilton, Hyatt, IHG, Marriott). Gold = Oneworld Ruby, Platinum = Oneworld Sapphire (lounge access!). Can bridge to Accor ALL status via Qatar Airways match.",
+    votes: 38,
+  },
+  {
+    id: "accor-all",
+    program: "Accor ALL (via Qatar Airways)",
+    category: "hotel",
+    matchRate: 75,
+    cost: "Free (via Qatar Airways bridge)",
+    difficulty: "medium",
+    requirements: [
+      "Qatar Airways Privilege Club Gold or Platinum status",
+      "Accor ALL account",
+      "Must link Qatar Airways and Accor accounts",
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://all.accor.com/loyalty-program/status-match/",
+      template: `Subject: Accor ALL Status Match Request
+
+Dear Accor ALL Team,
+
+I am requesting a status match via my Qatar Airways Privilege Club status.
+
+Name: {name}
+Accor ALL Number: {memberId}
+Qatar Airways Privilege Club Status: {status}
+
+My Qatar Airways and Accor accounts are linked.
+
+Thank you,
+{name}`,
+    },
+    tips: "Indirect match: Qatar Airways Privilege Club Gold = Accor Silver, Platinum = Accor Gold. No direct hotel-to-hotel match for Accor. Alternative: use legacy Fairmont/Raffles/Swissotel status for direct match.",
+    votes: 22,
+  },
+  {
     id: "southwest-airlines",
     program: "Southwest Airlines Rapid Rewards",
     category: "airline",
