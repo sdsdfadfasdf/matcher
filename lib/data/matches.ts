@@ -1777,6 +1777,77 @@ Thank you,
     votes: 8,
   },
   {
+    id: "sas-eurobonus",
+    program: "SAS EuroBonus Status Match",
+    category: "airline",
+    matchRate: 80,
+    cost: "Free",
+    difficulty: "easy",
+    requirements: [
+      "Existing airline elite status from any major carrier",
+      "SAS EuroBonus account",
+    ],
+    eligibleFrom: [
+      { program: "any", category: "airline" },
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.flysas.com/eurobonus/status-match",
+      template: `Subject: SAS EuroBonus Status Match Request
+
+Dear SAS EuroBonus Team,
+
+I am requesting a status match for my EuroBonus account.
+
+Name: {name}
+EuroBonus Number: {memberId}
+Current Status: {status}
+
+Proof of my current elite status is attached.
+
+Thank you,
+{name}`,
+    },
+    tips: "Launched March 2026 with up to 23-month status validity. One of the longest validity periods of any status match. SAS is a SkyTeam member. Accepts elite status from most major airline programs.",
+    votes: 12,
+  },
+  {
+    id: "finnair-plus",
+    program: "Finnair Plus SAS Match",
+    category: "airline",
+    matchRate: 90,
+    cost: "Free (requires flight to/from Sweden)",
+    difficulty: "medium",
+    requirements: [
+      "SAS EuroBonus elite status",
+      "Finnair Plus account",
+      "Book a Finnair flight to/from Sweden (April 2-23 booking window)",
+    ],
+    eligibleFrom: [
+      { program: "SAS EuroBonus", category: "airline" },
+    ],
+    howToApply: {
+      method: "web_form",
+      url: "https://www.finnair.com/finnair-plus/status-match",
+      template: `Subject: Finnair Plus Status Match Request (SAS EuroBonus)
+
+Dear Finnair Plus Team,
+
+I am an SAS EuroBonus elite member requesting the Finnair Plus status match.
+
+Name: {name}
+Finnair Plus Number: {memberId}
+SAS EuroBonus Status: {status}
+
+I have a qualifying Finnair flight to/from Sweden booked.
+
+Thank you,
+{name}`,
+    },
+    tips: "Targeted match for SAS EuroBonus members. Must book April 2-23, 2026, travel April 2-September 30, 2026. Finnair is a Oneworld member. Free match but requires a qualifying flight to/from Sweden.",
+    votes: 5,
+  },
+  {
     id: "virgin-voyages",
     program: "Virgin Voyages Blue Extras",
     category: "cruise",

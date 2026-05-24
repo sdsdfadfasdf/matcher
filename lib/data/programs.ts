@@ -26,6 +26,9 @@ export const knownPrograms: ProgramEntry[] = [
   { program: "Virgin Atlantic Flying Club", tiers: ["Silver", "Gold"], category: "airline" },
   { program: "Avianca LifeMiles", tiers: ["Silver", "Gold", "Diamond"], category: "airline" },
   { program: "Copa Airlines ConnectMiles", tiers: ["Silver", "Gold", "Platinum"], category: "airline" },
+  { program: "ITA Airways Volare", tiers: ["Smart", "Plus", "Premium", "Executive"], category: "airline" },
+  { program: "SAS EuroBonus", tiers: ["Silver", "Gold", "Diamond"], category: "airline" },
+  { program: "Finnair Plus", tiers: ["Silver", "Gold", "Platinum", "Platinum Lumo"], category: "airline" },
 
   // Hotels
   { program: "Hilton Honors", tiers: ["Silver", "Gold", "Diamond"], category: "hotel" },
