@@ -1,8 +1,11 @@
 "use client"
 
-import { Plane, Hotel, Car } from "lucide-react"
+import { Plane, Hotel, Car, RefreshCw } from "lucide-react"
+import { oldestFetchDate } from "@/lib/data/sources"
 
 export function Header() {
+  const lastUpdated = oldestFetchDate()
+
   return (
     <header className="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -25,6 +28,10 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-4 text-xs text-zinc-500">
+          <span className="flex items-center gap-1.5 text-zinc-600">
+            <RefreshCw className="h-3 w-3" />
+            Updated {lastUpdated}
+          </span>
           <span>
             Data from{" "}
             <a
@@ -35,6 +42,7 @@ export function Header() {
             >
               statusmatcher.com
             </a>
+            {" "}+ 5 sources
           </span>
         </div>
       </div>
