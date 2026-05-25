@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo } from "react"
+import { useMemo, useEffect, useState } from "react"
 import { LayoutGrid, List, UserCheck, Globe } from "lucide-react"
 import { Header } from "@/components/layout/Header"
 import { StatsBar } from "@/components/dashboard/StatsBar"
@@ -13,6 +13,8 @@ import { MembershipSelector } from "@/components/dashboard/MembershipSelector"
 import { matches } from "@/lib/data/matches"
 import { filterEligible } from "@/lib/eligibility"
 import { useFilters, type SortKey } from "@/lib/store"
+import { loadActiveProfile } from "@/lib/profiles"
+import { CreateProfileModal } from "@/components/dashboard/CreateProfileModal"
 
 const easeWeights: Record<string, number> = { easy: 1, medium: 0.6, hard: 0.3 }
 
@@ -41,9 +43,23 @@ export default function Home() {
   const view = useFilters((s) => s.view)
   const eligibilityMode = useFilters((s) => s.eligibilityMode)
   const memberships = useFilters((s) => s.memberships)
+  const favorites = useFilters((s) => s.favorites)
+  const activeProfile = useFilters((s) => s.activeProfile)
+  const setActiveProfile = useFilters((s) => s.setActiveProfile)
   const setSort = useFilters((s) => s.setSort)
   const setView = useFilters((s) => s.setView)
   const setEligibilityMode = useFilters((s) => s.setEligibilityMode)
+  const [showCreateProfile, setShowCreateProfile] = useState(false)
+  const [profileLoaded, setProfileLoaded] = useState(false)
+
+  // Load profile on mount
+  useEffect(() => {
+    const p = loadActiveProfile()
+    if (p) {
+      setActiveProfile(p)
+    }
+    setProfileLoaded(true)
+  }, [setActiveProfile])
 
   const filtered = useMemo(() => {
     let result = eligibilityMode ? filterEligible(matches, memberships) : matches
@@ -53,8 +69,15 @@ export default function Home() {
       const q = search.toLowerCase()
       result = result.filter((m) => m.program.toLowerCase().includes(q))
     }
-    return sortMatches(result, sort)
-  }, [category, difficulty, sort, search, eligibilityMode, memberships])
+    const sorted = sortMatches(result, sort)
+    // Push favorites to top
+    if (favorites.length > 0) {
+      const favs = sorted.filter((m) => favorites.includes(m.id))
+      const rest = sorted.filter((m) => !favorites.includes(m.id))
+      return [...favs, ...rest]
+    }
+    return sorted
+  }, [category, difficulty, sort, search, eligibilityMode, memberships, favorites])
 
   const sortLabels: Record<SortKey, string> = {
     ease: "Ease Score",
@@ -68,6 +91,27 @@ export default function Home() {
       <Header />
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8 space-y-6">
         <StatsBar />
+
+        <CreateProfileModal
+          open={showCreateProfile}
+          onClose={() => setShowCreateProfile(false)}
+          onCreated={() => setShowCreateProfile(false)}
+        />
+
+        {profileLoaded && !activeProfile && (
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-6 text-center">
+            <p className="text-zinc-300 font-medium mb-2">Welcome to StatusMatch</p>
+            <p className="text-sm text-zinc-500 mb-4">
+              Create a profile to save your memberships and favorites across sessions.
+            </p>
+            <button
+              onClick={() => setShowCreateProfile(true)}
+              className="inline-flex items-center gap-2 rounded-lg bg-zinc-100 text-zinc-900 px-4 py-2 text-sm font-medium hover:bg-zinc-200 transition-colors cursor-pointer"
+            >
+              Create Profile
+            </button>
+          </div>
+        )}
 
         <div className="flex items-center gap-2">
           <button

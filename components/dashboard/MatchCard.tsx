@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "motion/react"
-import { ChevronDown, ChevronUp, Star, Send } from "lucide-react"
+import { ChevronDown, ChevronUp, Heart, Send } from "lucide-react"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { EmailModal } from "@/components/ui/EmailModal"
@@ -16,6 +16,11 @@ export function MatchCard({ match }: { match: Match }) {
   const [emailOpen, setEmailOpen] = useState(false)
   const eligibilityMode = useFilters((s) => s.eligibilityMode)
   const memberships = useFilters((s) => s.memberships)
+  const favorites = useFilters((s) => s.favorites)
+  const toggleFavorite = useFilters((s) => s.toggleFavorite)
+  const activeProfile = useFilters((s) => s.activeProfile)
+
+  const isFav = favorites.includes(match.id)
 
   const eligibleSources =
     eligibilityMode && memberships.length > 0
@@ -69,6 +74,21 @@ export function MatchCard({ match }: { match: Match }) {
             </div>
 
             <div className="flex items-center gap-3 shrink-0">
+              {activeProfile && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    toggleFavorite(match.id)
+                  }}
+                  className={`rounded-lg p-1.5 transition-colors cursor-pointer ${
+                    isFav
+                      ? "text-rose-400 hover:text-rose-300 bg-rose-500/10"
+                      : "text-zinc-600 hover:text-zinc-400"
+                  }`}
+                >
+                  <Heart className={`h-4 w-4 ${isFav ? "fill-rose-400" : ""}`} />
+                </button>
+              )}
               <div className="text-right">
                 <div className="text-lg font-bold text-zinc-100">
                   {formatPercent(match.matchRate)}

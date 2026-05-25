@@ -2,6 +2,7 @@
 
 import { Plane, Hotel, Car, RefreshCw } from "lucide-react"
 import { oldestFetchDate } from "@/lib/data/sources"
+import { ProfileSwitcher } from "@/components/layout/ProfileSwitcher"
 
 export function Header() {
   const lastUpdated = oldestFetchDate()
@@ -27,23 +28,26 @@ export function Header() {
           </div>
         </div>
 
-        <div className="flex items-center gap-4 text-xs text-zinc-500">
-          <span className="flex items-center gap-1.5 text-zinc-600">
-            <RefreshCw className="h-3 w-3" />
-            Updated {lastUpdated}
-          </span>
-          <span>
-            Data from{" "}
-            <a
-              href="https://statusmatcher.com"
-              target="_blank"
-              rel="noopener"
-              className="text-zinc-400 hover:text-zinc-200 underline transition-colors"
-            >
-              statusmatcher.com
-            </a>
-            {" "}+ 5 sources
-          </span>
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-3 text-xs text-zinc-500">
+            <span className="flex items-center gap-1.5 text-zinc-600">
+              <RefreshCw className="h-3 w-3" />
+              Updated {lastUpdated}
+            </span>
+            <span>
+              Data from{" "}
+              <a
+                href="https://statusmatcher.com"
+                target="_blank"
+                rel="noopener"
+                className="text-zinc-400 hover:text-zinc-200 underline transition-colors"
+              >
+                statusmatcher.com
+              </a>
+              {" "}+ 5 sources
+            </span>
+          </div>
+          <ProfileSwitcher />
         </div>
       </div>
     </header>
