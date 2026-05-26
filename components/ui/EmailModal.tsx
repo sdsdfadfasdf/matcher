@@ -58,6 +58,7 @@ export function EmailModal({
             className="relative w-full max-w-lg rounded-2xl border border-zinc-800 bg-zinc-950 p-6 shadow-2xl"
           >
             <button
+              aria-label="Close email modal"
               onClick={onClose}
               className="absolute right-4 top-4 rounded-lg p-1 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
             >
@@ -93,7 +94,12 @@ export function EmailModal({
             {match.howToApply.email && (
               <div className="flex items-center gap-2 text-sm text-zinc-400 mb-3">
                 <span className="text-zinc-500">To:</span>
-                <Badge variant="blue">{match.howToApply.email}</Badge>
+                <a
+                  href={`mailto:${match.howToApply.email}`}
+                  className="hover:opacity-80 transition-opacity"
+                >
+                  <Badge variant="blue">{match.howToApply.email}</Badge>
+                </a>
               </div>
             )}
 

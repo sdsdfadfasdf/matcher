@@ -39,10 +39,6 @@ type FilterState = {
   syncFromProfile: () => void
 }
 
-function persist(profile: Profile): void {
-  updateProfile(profile)
-}
-
 export const useFilters = create<FilterState>((set, get) => ({
   category: "all",
   difficulty: "all",
@@ -60,8 +56,7 @@ export const useFilters = create<FilterState>((set, get) => ({
     set({ sort })
     const p = get().activeProfile
     if (p) {
-      p.preferences.defaultSort = sort
-      persist(p)
+      updateProfile({ ...p, preferences: { ...p.preferences, defaultSort: sort } })
     }
   },
   setSearch: (search) => set({ search }),
@@ -69,8 +64,7 @@ export const useFilters = create<FilterState>((set, get) => ({
     set({ view })
     const p = get().activeProfile
     if (p) {
-      p.preferences.defaultView = view
-      persist(p)
+      updateProfile({ ...p, preferences: { ...p.preferences, defaultView: view } })
     }
   },
   setEligibilityMode: (eligibilityMode) => set({ eligibilityMode }),
@@ -82,8 +76,7 @@ export const useFilters = create<FilterState>((set, get) => ({
         : [...s.memberships, m]
       const p = s.activeProfile
       if (p) {
-        p.memberships = memberships
-        persist(p)
+        updateProfile({ ...p, memberships })
       }
       return { memberships }
     }),
@@ -92,8 +85,7 @@ export const useFilters = create<FilterState>((set, get) => ({
       const memberships = s.memberships.filter((m) => m.program !== program)
       const p = s.activeProfile
       if (p) {
-        p.memberships = memberships
-        persist(p)
+        updateProfile({ ...p, memberships })
       }
       return { memberships }
     }),
@@ -101,8 +93,7 @@ export const useFilters = create<FilterState>((set, get) => ({
     set((s) => {
       const p = s.activeProfile
       if (p) {
-        p.memberships = []
-        persist(p)
+        updateProfile({ ...p, memberships: [] })
       }
       return { memberships: [] }
     }),
@@ -121,6 +112,8 @@ export const useFilters = create<FilterState>((set, get) => ({
         activeProfile: null,
         memberships: [],
         favorites: [],
+        view: "grid",
+        sort: "ease",
       })
     }
   },
@@ -130,8 +123,7 @@ export const useFilters = create<FilterState>((set, get) => ({
       const favorites = s.favorites.includes(matchId) ? s.favorites : [...s.favorites, matchId]
       const p = s.activeProfile
       if (p) {
-        p.favorites = favorites
-        persist(p)
+        updateProfile({ ...p, favorites })
       }
       return { favorites }
     }),
@@ -141,8 +133,7 @@ export const useFilters = create<FilterState>((set, get) => ({
       const favorites = s.favorites.filter((id) => id !== matchId)
       const p = s.activeProfile
       if (p) {
-        p.favorites = favorites
-        persist(p)
+        updateProfile({ ...p, favorites })
       }
       return { favorites }
     }),

@@ -5,41 +5,60 @@ import { TrendingUp, Award, Zap, DollarSign } from "lucide-react"
 import { Card } from "@/components/ui/Card"
 import { matches } from "@/lib/data/matches"
 
-const stats = [
-  {
-    label: "Total Programs",
-    value: matches.length,
-    icon: Award,
-    color: "text-amber-400",
-    bg: "bg-amber-500/10",
-  },
-  {
-    label: "Best Match Rate",
-    value: "96%",
-    detail: "Best Western",
-    icon: TrendingUp,
-    color: "text-emerald-400",
-    bg: "bg-emerald-500/10",
-  },
-  {
-    label: "Easiest Category",
-    value: "Hotels",
-    detail: `${matches.filter((m) => m.difficulty === "easy").filter((m) => m.category === "hotel").length} easy matches`,
-    icon: Zap,
-    color: "text-blue-400",
-    bg: "bg-blue-500/10",
-  },
-  {
-    label: "Free Matches",
-    value: matches.filter((m) => m.cost === "Free").length,
-    detail: "No cost to apply",
-    icon: DollarSign,
-    color: "text-violet-400",
-    bg: "bg-violet-500/10",
-  },
-]
+function getStats() {
+  const bestMatch = matches.reduce((best, m) =>
+    m.matchRate > best.matchRate ? m : best, matches[0])
+
+  const easyByCategory: Record<string, number> = {}
+  matches.filter((m) => m.difficulty === "easy").forEach((m) => {
+    easyByCategory[m.category] = (easyByCategory[m.category] || 0) + 1
+  })
+  let easiestCategory = "hotel"
+  let maxCount = 0
+  for (const [cat, count] of Object.entries(easyByCategory)) {
+    if (count > maxCount) { easiestCategory = cat; maxCount = count }
+  }
+  const categoryLabel = easiestCategory === "airline" ? "Airline"
+    : easiestCategory === "auto" ? "Auto"
+    : easiestCategory === "cruise" ? "Cruise" : "Hotel"
+
+  return [
+    {
+      label: "Total Programs",
+      value: matches.length,
+      icon: Award,
+      color: "text-amber-400",
+      bg: "bg-amber-500/10",
+    },
+    {
+      label: "Best Match Rate",
+      value: `${Math.round(bestMatch.matchRate)}%`,
+      detail: bestMatch.program,
+      icon: TrendingUp,
+      color: "text-emerald-400",
+      bg: "bg-emerald-500/10",
+    },
+    {
+      label: "Easiest Category",
+      value: categoryLabel,
+      detail: `${maxCount} easy matches`,
+      icon: Zap,
+      color: "text-blue-400",
+      bg: "bg-blue-500/10",
+    },
+    {
+      label: "Free Matches",
+      value: matches.filter((m) => m.cost === "Free").length,
+      detail: "No cost to apply",
+      icon: DollarSign,
+      color: "text-violet-400",
+      bg: "bg-violet-500/10",
+    },
+  ]
+}
 
 export function StatsBar() {
+  const stats = getStats()
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {stats.map((s) => (

@@ -156,6 +156,7 @@ export default function Home() {
             <SearchBar />
             <div className="flex items-center gap-1 rounded-lg bg-zinc-800/50 p-1">
               <button
+                aria-label="Grid view"
                 onClick={() => setView("grid")}
                 className={`rounded-md p-1.5 cursor-pointer transition-colors ${
                   view === "grid"
@@ -166,6 +167,7 @@ export default function Home() {
                 <LayoutGrid className="h-4 w-4" />
               </button>
               <button
+                aria-label="Table view"
                 onClick={() => setView("table")}
                 className={`rounded-md p-1.5 cursor-pointer transition-colors ${
                   view === "table"

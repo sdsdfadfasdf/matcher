@@ -47,6 +47,9 @@ export function Header() {
               {" "}+ 5 sources
             </span>
           </div>
+          <span className="sm:hidden text-xs text-zinc-600">
+            Updated {lastUpdated}
+          </span>
           <ProfileSwitcher />
         </div>
       </div>

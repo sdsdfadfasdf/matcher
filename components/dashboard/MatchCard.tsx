@@ -38,18 +38,19 @@ export function MatchCard({ match }: { match: Match }) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -12 }}
         className={cn(
-          "rounded-xl border bg-zinc-900/60 backdrop-blur-sm overflow-hidden transition-shadow hover:shadow-lg hover:shadow-zinc-900/50",
+          "rounded-xl border bg-zinc-900/60 overflow-hidden transition-shadow hover:shadow-lg hover:shadow-black/30 hover:border-zinc-700/60",
           rateBorder(match.matchRate),
         )}
       >
         <button
+          aria-expanded={expanded}
           onClick={() => setExpanded((v) => !v)}
           className="w-full p-5 text-left cursor-pointer"
         >
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-sm font-semibold text-zinc-100 truncate">
+                <span className="text-sm font-semibold text-zinc-100 truncate" title={match.program}>
                   {match.program}
                 </span>
                 <Badge variant="zinc">
@@ -76,6 +77,7 @@ export function MatchCard({ match }: { match: Match }) {
             <div className="flex items-center gap-3 shrink-0">
               {activeProfile && (
                 <button
+                  aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
                   onClick={(e) => {
                     e.stopPropagation()
                     toggleFavorite(match.id)
@@ -124,12 +126,9 @@ export function MatchCard({ match }: { match: Match }) {
               <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
                 Requirements
               </h4>
-              <ul className="space-y-1">
+              <ul className="space-y-1 list-disc pl-4 text-sm text-zinc-300">
                 {match.requirements.map((r, i) => (
-                  <li key={i} className="text-sm text-zinc-300 flex items-start gap-2">
-                    <span className="text-zinc-500 mt-[-1px]">-</span>
-                    {r}
-                  </li>
+                  <li key={i}>{r}</li>
                 ))}
               </ul>
             </div>

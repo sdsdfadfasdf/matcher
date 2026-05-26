@@ -17,10 +17,12 @@ export function Tabs<T extends string>({
   className?: string
 }) {
   return (
-    <div className={cn("flex gap-1 rounded-lg bg-zinc-800/50 p-1", className)}>
+    <div role="tablist" className={cn("flex gap-1 rounded-lg bg-zinc-800/50 p-1", className)}>
       {tabs.map((t) => (
         <button
           key={t.id}
+          role="tab"
+          aria-selected={active === t.id}
           onClick={() => onChange(t.id)}
           className={cn(
             "flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors cursor-pointer",

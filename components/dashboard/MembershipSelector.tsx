@@ -34,9 +34,24 @@ export function MembershipSelector() {
         setSelectedProgram(null)
       }
     }
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape" && open) {
+        if (selectedProgram) {
+          setSelectedProgram(null)
+        } else if (query) {
+          setQuery("")
+        } else {
+          setOpen(false)
+        }
+      }
+    }
     document.addEventListener("mousedown", handleClick)
-    return () => document.removeEventListener("mousedown", handleClick)
-  }, [])
+    document.addEventListener("keydown", handleKey)
+    return () => {
+      document.removeEventListener("mousedown", handleClick)
+      document.removeEventListener("keydown", handleKey)
+    }
+  }, [open, query, selectedProgram])
 
   const filtered = query
     ? knownPrograms.filter(
@@ -44,7 +59,9 @@ export function MembershipSelector() {
           p.program.toLowerCase().includes(query.toLowerCase()) &&
           !memberships.some((m) => m.program === p.program),
       )
-    : []
+    : knownPrograms.filter(
+        (p) => !memberships.some((m) => m.program === p.program),
+      )
 
   function select(program: (typeof knownPrograms)[0], tier: string) {
     addMembership({ program: program.program, tier, category: program.category })
@@ -102,6 +119,7 @@ export function MembershipSelector() {
           <Search className="h-4 w-4 text-zinc-500 shrink-0" />
           <input
             type="text"
+            aria-label="Search loyalty programs"
             placeholder="Add a loyalty program..."
             value={query}
             onChange={(e) => {
@@ -115,7 +133,7 @@ export function MembershipSelector() {
         </div>
 
         <AnimatePresence>
-          {open && (filtered.length > 0 || selectedProgram) && (
+          {open && (query || filtered.length > 0 || selectedProgram) && (
             <motion.div
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}

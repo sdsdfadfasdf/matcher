@@ -39,6 +39,16 @@ export function StrategicUnlocks() {
 
 function SuggestionRow({ suggestion }: { suggestion: StrategicSuggestion }) {
   const [expanded, setExpanded] = useState(false)
+  const setSearch = useFilters((s) => s.setSearch)
+  const setCategory = useFilters((s) => s.setCategory)
+  const setView = useFilters((s) => s.setView)
+
+  function navigateTo(program: string) {
+    setCategory("all")
+    setSearch(program)
+    setView("grid")
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
 
   return (
     <div className="rounded-lg border border-zinc-800 bg-zinc-900/40">
@@ -63,14 +73,15 @@ function SuggestionRow({ suggestion }: { suggestion: StrategicSuggestion }) {
       {expanded && (
         <div className="px-3 pb-3 pt-1 space-y-1 border-t border-zinc-800/50">
           {suggestion.unlocks.map((m) => (
-            <div
+            <button
               key={m.id}
-              className="flex items-center gap-2 text-xs text-zinc-400 pl-5"
+              onClick={() => navigateTo(m.program)}
+              className="w-full text-left flex items-center gap-2 text-xs text-zinc-400 hover:text-zinc-200 pl-5 py-0.5 transition-colors cursor-pointer"
             >
-              <span className="w-1 h-1 rounded-full bg-zinc-600 shrink-0" />
-              <span>{m.program}</span>
+              <span className="w-1 h-1 rounded-full bg-zinc-600 shrink-0" aria-hidden="true" />
+              <span className="hover:text-blue-400 transition-colors">{m.program}</span>
               <span className="text-zinc-600">({m.category})</span>
-            </div>
+            </button>
           ))}
         </div>
       )}

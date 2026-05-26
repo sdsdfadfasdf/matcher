@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { User, Plus, Trash2, Check } from "lucide-react"
 import { motion, AnimatePresence } from "motion/react"
+import { cn } from "@/lib/utils"
 import { useFilters } from "@/lib/store"
 import { loadProfiles, setActiveProfile, deleteProfile } from "@/lib/profiles"
 import { CreateProfileModal } from "@/components/dashboard/CreateProfileModal"
@@ -10,6 +11,7 @@ import { CreateProfileModal } from "@/components/dashboard/CreateProfileModal"
 export function ProfileSwitcher() {
   const [open, setOpen] = useState(false)
   const [showCreate, setShowCreate] = useState(false)
+  const [focusedIndex, setFocusedIndex] = useState(-1)
   const activeProfile = useFilters((s) => s.activeProfile)
   const setActiveProfileFn = useFilters((s) => s.setActiveProfile)
   const syncFromProfile = useFilters((s) => s.syncFromProfile)
@@ -19,11 +21,36 @@ export function ProfileSwitcher() {
     function handleClick(e: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setOpen(false)
+        setFocusedIndex(-1)
+      }
+    }
+    function handleKey(e: KeyboardEvent) {
+      if (!open) return
+      if (e.key === "Escape") {
+        setOpen(false)
+        setFocusedIndex(-1)
+        return
+      }
+      const profiles = loadProfiles()
+      if (e.key === "ArrowDown") {
+        e.preventDefault()
+        setFocusedIndex((i) => Math.min(i + 1, profiles.length - 1))
+      }
+      if (e.key === "ArrowUp") {
+        e.preventDefault()
+        setFocusedIndex((i) => Math.max(i - 1, 0))
+      }
+      if (e.key === "Enter" && focusedIndex >= 0 && focusedIndex < profiles.length) {
+        handleSwitch(profiles[focusedIndex].id)
       }
     }
     document.addEventListener("mousedown", handleClick)
-    return () => document.removeEventListener("mousedown", handleClick)
-  }, [])
+    document.addEventListener("keydown", handleKey)
+    return () => {
+      document.removeEventListener("mousedown", handleClick)
+      document.removeEventListener("keydown", handleKey)
+    }
+  }, [open, focusedIndex])
 
   const profiles = loadProfiles()
 
@@ -35,7 +62,8 @@ export function ProfileSwitcher() {
     setOpen(false)
   }
 
-  function handleDelete(id: string) {
+  function handleDelete(id: string, name: string) {
+    if (!window.confirm(`Delete profile "${name}"? This cannot be undone.`)) return
     deleteProfile(id)
     const remaining = loadProfiles()
     if (remaining.length > 0) {
@@ -62,6 +90,7 @@ export function ProfileSwitcher() {
 
       <div className="relative" ref={containerRef}>
         <button
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
           className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors cursor-pointer"
         >
@@ -88,8 +117,14 @@ export function ProfileSwitcher() {
                   No profiles yet
                 </div>
               ) : (
-                profiles.map((p) => (
-                  <div key={p.id} className="flex items-center gap-2 px-3 py-2">
+                profiles.map((p, i) => (
+                  <div
+                    key={p.id}
+                    className={cn(
+                      "flex items-center gap-2 px-3 py-2",
+                      focusedIndex === i && "bg-zinc-800",
+                    )}
+                  >
                     <button
                       onClick={() => handleSwitch(p.id)}
                       className="flex-1 text-left text-sm text-zinc-300 hover:text-zinc-100 transition-colors cursor-pointer flex items-center gap-2"
@@ -102,7 +137,8 @@ export function ProfileSwitcher() {
                       </span>
                     </button>
                     <button
-                      onClick={() => handleDelete(p.id)}
+                      aria-label={`Delete ${p.name} profile`}
+                      onClick={() => handleDelete(p.id, p.name)}
                       className="rounded p-0.5 text-zinc-600 hover:text-red-400 transition-colors cursor-pointer"
                     >
                       <Trash2 className="h-3 w-3" />

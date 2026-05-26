@@ -23,17 +23,42 @@ function uid(): string {
   return crypto.randomUUID?.() ?? Math.random().toString(36).slice(2, 10)
 }
 
+function isValidProfile(item: unknown): item is Profile {
+  if (!item || typeof item !== "object") return false
+  const p = item as Record<string, unknown>
+  return (
+    typeof p.id === "string" &&
+    typeof p.name === "string" &&
+    Array.isArray(p.memberships) &&
+    Array.isArray(p.favorites)
+  )
+}
+
 export function loadProfiles(): Profile[] {
   try {
     const raw = localStorage.getItem(PROFILES_KEY)
-    return raw ? (JSON.parse(raw) as Profile[]) : []
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    if (!Array.isArray(parsed)) return []
+    return parsed.filter(isValidProfile)
   } catch {
     return []
   }
 }
 
 function saveProfiles(profiles: Profile[]): void {
-  localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles))
+  try {
+    localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles))
+  } catch (e) {
+    if (e instanceof DOMException && e.name === "QuotaExceededError") {
+      const trimmed = profiles.slice(-3)
+      try {
+        localStorage.setItem(PROFILES_KEY, JSON.stringify(trimmed))
+      } catch {
+        console.error("Failed to save profiles: localStorage full")
+      }
+    }
+  }
 }
 
 export function loadActiveProfile(): Profile | null {
@@ -41,7 +66,9 @@ export function loadActiveProfile(): Profile | null {
   if (profiles.length === 0) return null
   const activeId = localStorage.getItem(ACTIVE_KEY)
   const found = activeId ? profiles.find((p) => p.id === activeId) : null
-  return found ?? profiles[0]
+  if (found) return found
+  localStorage.setItem(ACTIVE_KEY, profiles[0].id)
+  return profiles[0]
 }
 
 export function setActiveProfile(id: string): Profile | null {

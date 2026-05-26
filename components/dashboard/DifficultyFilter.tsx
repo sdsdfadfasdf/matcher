@@ -12,6 +12,7 @@ export function DifficultyFilter() {
       {difficulties.map((d) => (
         <button
           key={d.id}
+          aria-pressed={difficulty === d.id}
           onClick={() => setDifficulty(d.id)}
           className={`rounded-full px-3 py-1 text-xs font-medium transition-colors cursor-pointer ${
             difficulty === d.id
