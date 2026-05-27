@@ -36,3 +36,8 @@ export function rateBorder(rate: number) {
   if (rate >= 50) return "border-amber-500/40"
   return "border-red-500/40"
 }
+
+export function daysAgo(dateStr: string): number {
+  const diff = Date.now() - new Date(dateStr).getTime()
+  return Math.floor(diff / (1000 * 60 * 60 * 24))
+}

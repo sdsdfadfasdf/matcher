@@ -9,7 +9,8 @@ import { useState, Fragment } from "react"
 import { EmailModal } from "@/components/ui/EmailModal"
 import { findEligibleSources } from "@/lib/eligibility"
 import { useFilters } from "@/lib/store"
-import { motion, AnimatePresence } from "motion/react"
+import { getCommunityData } from "@/lib/community"
+import { motion } from "motion/react"
 
 export function RankingTable({ matches }: { matches: Match[] }) {
   const [emailMatch, setEmailMatch] = useState<Match | null>(null)
@@ -52,6 +53,10 @@ export function RankingTable({ matches }: { matches: Match[] }) {
             <tbody>
               {matches.map((m) => {
                 const isExpanded = expandedId === m.id
+                const communityData = getCommunityData(m.id)
+                const effectiveRate = communityData && communityData.communityVotes > 0
+                  ? communityData.communityMatchRate
+                  : m.matchRate
                 const eligibleSources =
                   eligibilityMode && memberships.length > 0
                     ? findEligibleSources(m, memberships)
@@ -97,11 +102,14 @@ export function RankingTable({ matches }: { matches: Match[] }) {
                         <div className="flex items-center gap-2">
                           <div className="h-1.5 w-16 rounded-full bg-zinc-800 overflow-hidden">
                             <div
-                              className={cn("h-full rounded-full", rateColor(m.matchRate))}
-                              style={{ width: `${m.matchRate}%` }}
+                              className={cn("h-full rounded-full", rateColor(effectiveRate))}
+                              style={{ width: `${effectiveRate}%` }}
                             />
                           </div>
-                          <span className="text-zinc-300">{formatPercent(m.matchRate)}</span>
+                          <span className="text-zinc-300">{formatPercent(effectiveRate)}</span>
+                          {communityData && communityData.communityVotes > 0 && (
+                            <span className="text-[10px] text-zinc-600 italic">community</span>
+                          )}
                         </div>
                       </td>
                       <td className="py-3 px-4">

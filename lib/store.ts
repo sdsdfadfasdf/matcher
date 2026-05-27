@@ -1,7 +1,9 @@
 import { create } from "zustand"
 import type { UserStatus } from "./eligibility"
+import type { OutcomeReport } from "./data/matches"
 import type { Profile } from "./profiles"
 import { updateProfile } from "./profiles"
+import { invalidateCommunityCache } from "./community"
 
 export type Category = "all" | "airline" | "hotel" | "auto" | "cruise"
 export type Difficulty = "all" | "easy" | "medium" | "hard"
@@ -20,6 +22,7 @@ type FilterState = {
   // Profile
   activeProfile: Profile | null
   favorites: string[]
+  outcomeReports: OutcomeReport[]
 
   setCategory: (c: Category) => void
   setDifficulty: (d: Difficulty) => void
@@ -37,6 +40,11 @@ type FilterState = {
   removeFavorite: (matchId: string) => void
   toggleFavorite: (matchId: string) => void
   syncFromProfile: () => void
+
+  // Outcome report actions
+  addOutcomeReport: (report: OutcomeReport) => void
+  removeOutcomeReport: (reportId: string) => void
+  updateOutcomeReport: (reportId: string, updates: Partial<OutcomeReport>) => void
 }
 
 export const useFilters = create<FilterState>((set, get) => ({
@@ -49,6 +57,7 @@ export const useFilters = create<FilterState>((set, get) => ({
   memberships: [],
   activeProfile: null,
   favorites: [],
+  outcomeReports: [],
 
   setCategory: (category) => set({ category }),
   setDifficulty: (difficulty) => set({ difficulty }),
@@ -104,6 +113,7 @@ export const useFilters = create<FilterState>((set, get) => ({
         activeProfile: p,
         memberships: p.memberships,
         favorites: p.favorites,
+        outcomeReports: p.outcomeReports ?? [],
         view: p.preferences.defaultView,
         sort: p.preferences.defaultSort,
       })
@@ -112,10 +122,12 @@ export const useFilters = create<FilterState>((set, get) => ({
         activeProfile: null,
         memberships: [],
         favorites: [],
+        outcomeReports: [],
         view: "grid",
         sort: "ease",
       })
     }
+    invalidateCommunityCache()
   },
 
   addFavorite: (matchId) =>
@@ -153,9 +165,46 @@ export const useFilters = create<FilterState>((set, get) => ({
       set({
         memberships: p.memberships,
         favorites: p.favorites,
+        outcomeReports: p.outcomeReports ?? [],
         view: p.preferences.defaultView,
         sort: p.preferences.defaultSort,
       })
     }
+    invalidateCommunityCache()
   },
+
+  addOutcomeReport: (report) =>
+    set((s) => {
+      const outcomeReports = [...s.outcomeReports, report]
+      const p = s.activeProfile
+      if (p) {
+        updateProfile({ ...p, outcomeReports })
+      }
+      invalidateCommunityCache()
+      return { outcomeReports }
+    }),
+
+  removeOutcomeReport: (reportId) =>
+    set((s) => {
+      const outcomeReports = s.outcomeReports.filter((r) => r.id !== reportId)
+      const p = s.activeProfile
+      if (p) {
+        updateProfile({ ...p, outcomeReports })
+      }
+      invalidateCommunityCache()
+      return { outcomeReports }
+    }),
+
+  updateOutcomeReport: (reportId, updates) =>
+    set((s) => {
+      const outcomeReports = s.outcomeReports.map((r) =>
+        r.id === reportId ? { ...r, ...updates } : r,
+      )
+      const p = s.activeProfile
+      if (p) {
+        updateProfile({ ...p, outcomeReports })
+      }
+      invalidateCommunityCache()
+      return { outcomeReports }
+    }),
 }))

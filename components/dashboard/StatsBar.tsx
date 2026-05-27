@@ -1,13 +1,24 @@
 "use client"
 
 import { useMemo } from "react"
-import { TrendingUp, Award, Zap, DollarSign } from "lucide-react"
+import { TrendingUp, Award, Zap, DollarSign, Users } from "lucide-react"
 import { Card } from "@/components/ui/Card"
 import { matches } from "@/lib/data/matches"
+import { computeAllCommunityData, getTotalCommunityReports } from "@/lib/community"
 
 function getStats() {
-  const bestMatch = matches.reduce((best, m) =>
-    m.matchRate > best.matchRate ? m : best, matches[0])
+  const communityData = computeAllCommunityData()
+
+  let bestRate = 0
+  let bestProgram = ""
+  matches.forEach((m) => {
+    const cd = communityData.get(m.id)
+    const rate = cd && cd.communityVotes > 0 ? cd.communityMatchRate : m.matchRate
+    if (rate > bestRate) {
+      bestRate = rate
+      bestProgram = m.program
+    }
+  })
 
   const easyByCategory: Record<string, number> = {}
   matches.filter((m) => m.difficulty === "easy").forEach((m) => {
@@ -32,8 +43,8 @@ function getStats() {
     },
     {
       label: "Best Match Rate",
-      value: `${Math.round(bestMatch.matchRate)}%`,
-      detail: bestMatch.program,
+      value: `${Math.round(bestRate)}%`,
+      detail: bestProgram,
       icon: TrendingUp,
       color: "text-emerald-400",
       bg: "bg-emerald-500/10",
@@ -54,11 +65,18 @@ function getStats() {
       color: "text-violet-400",
       bg: "bg-violet-500/10",
     },
+    {
+      label: "Community Reports",
+      value: getTotalCommunityReports(),
+      icon: Users,
+      color: "text-purple-400",
+      bg: "bg-purple-500/10",
+    },
   ]
 }
 
 export function StatsBar() {
-  const stats = getStats()
+  const stats = useMemo(() => getStats(), [])
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {stats.map((s) => (

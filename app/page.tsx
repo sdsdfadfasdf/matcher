@@ -11,6 +11,7 @@ import { MatchGrid } from "@/components/dashboard/MatchGrid"
 import { RankingTable } from "@/components/dashboard/RankingTable"
 import { MembershipSelector } from "@/components/dashboard/MembershipSelector"
 import { StrategicUnlocks } from "@/components/dashboard/StrategicUnlocks"
+import { MyReports } from "@/components/dashboard/MyReports"
 import { matches } from "@/lib/data/matches"
 import { filterEligible } from "@/lib/eligibility"
 import { useFilters, type SortKey } from "@/lib/store"
@@ -145,6 +146,8 @@ export default function Home() {
             <StrategicUnlocks />
           </>
         )}
+
+        {activeProfile && <MyReports />}
 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-3">

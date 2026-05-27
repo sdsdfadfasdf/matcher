@@ -1,4 +1,5 @@
 import type { UserStatus } from "./eligibility"
+import type { OutcomeReport } from "./data/matches"
 import type { SortKey, ViewMode } from "./store"
 
 export type ProfilePreferences = {
@@ -14,6 +15,7 @@ export type Profile = {
   memberships: UserStatus[]
   favorites: string[]
   preferences: ProfilePreferences
+  outcomeReports: OutcomeReport[]
 }
 
 const PROFILES_KEY = "statusmatch_profiles"
@@ -30,7 +32,8 @@ function isValidProfile(item: unknown): item is Profile {
     typeof p.id === "string" &&
     typeof p.name === "string" &&
     Array.isArray(p.memberships) &&
-    Array.isArray(p.favorites)
+    Array.isArray(p.favorites) &&
+    (typeof p.outcomeReports === "undefined" || Array.isArray(p.outcomeReports))
   )
 }
 
@@ -89,6 +92,7 @@ export function createProfile(name: string): Profile {
     lastActive: new Date().toISOString(),
     memberships: [],
     favorites: [],
+    outcomeReports: [],
     preferences: { defaultView: "grid", defaultSort: "ease" },
   }
   profiles.push(profile)

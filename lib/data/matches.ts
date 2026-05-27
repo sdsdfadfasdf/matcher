@@ -25,6 +25,24 @@ export type Match = {
   votes: number
 }
 
+export type OutcomeResult = "approved" | "denied" | "pending"
+
+export type OutcomeReport = {
+  id: string
+  matchId: string
+  outcome: OutcomeResult
+  timestamp: string
+  tier?: string
+  notes?: string
+}
+
+export type CommunityMatchData = {
+  communityMatchRate: number
+  communityVotes: number
+  communityOutcomes: { approved: number; denied: number; pending: number }
+  lastReportDate: string | null
+}
+
 export const matches: Match[] = [
   // ── HOTELS ──────────────────────────────────────
   {

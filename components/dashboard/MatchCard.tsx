@@ -1,12 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { motion } from "motion/react"
 import { ChevronDown, ChevronUp, Heart, Send } from "lucide-react"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { EmailModal } from "@/components/ui/EmailModal"
-import { cn, formatPercent, easeLabel, easeColor, easeBg, rateColor, rateBorder } from "@/lib/utils"
+import { OutcomeModal } from "@/components/ui/OutcomeModal"
+import { cn, formatPercent, easeLabel, easeColor, easeBg, rateColor, rateBorder, daysAgo } from "@/lib/utils"
+import { getCommunityData } from "@/lib/community"
 import { findEligibleSources } from "@/lib/eligibility"
 import { useFilters } from "@/lib/store"
 import type { Match } from "@/lib/data/matches"
@@ -14,7 +16,12 @@ import type { Match } from "@/lib/data/matches"
 export function MatchCard({ match }: { match: Match }) {
   const [expanded, setExpanded] = useState(false)
   const [emailOpen, setEmailOpen] = useState(false)
+  const [outcomeOpen, setOutcomeOpen] = useState(false)
   const eligibilityMode = useFilters((s) => s.eligibilityMode)
+  const communityData = useMemo(() => getCommunityData(match.id), [match.id])
+  const effectiveRate = communityData && communityData.communityVotes > 0
+    ? communityData.communityMatchRate
+    : match.matchRate
   const memberships = useFilters((s) => s.memberships)
   const favorites = useFilters((s) => s.favorites)
   const toggleFavorite = useFilters((s) => s.toggleFavorite)
@@ -32,6 +39,7 @@ export function MatchCard({ match }: { match: Match }) {
   return (
     <>
       <EmailModal match={match} open={emailOpen} onClose={() => setEmailOpen(false)} />
+      <OutcomeModal match={match} open={outcomeOpen} onClose={() => setOutcomeOpen(false)} />
       <motion.div
         layout
         initial={{ opacity: 0, y: 24 }}
@@ -39,7 +47,7 @@ export function MatchCard({ match }: { match: Match }) {
         exit={{ opacity: 0, y: -12 }}
         className={cn(
           "rounded-xl border bg-zinc-900/60 overflow-hidden transition-shadow hover:shadow-lg hover:shadow-black/30 hover:border-zinc-700/60",
-          rateBorder(match.matchRate),
+          rateBorder(effectiveRate),
         )}
       >
         <button
@@ -62,6 +70,13 @@ export function MatchCard({ match }: { match: Match }) {
                         ? "Auto"
                         : "Cruise"}
                 </Badge>
+                {communityData && communityData.communityVotes > 0 && (
+                  communityData.lastReportDate && daysAgo(communityData.lastReportDate) <= 7 ? (
+                    <Badge variant="emerald">Verified recently</Badge>
+                  ) : communityData.lastReportDate ? (
+                    <Badge variant="zinc">Last report {daysAgo(communityData.lastReportDate)}d ago</Badge>
+                  ) : null
+                )}
               </div>
               <div className="flex items-center gap-2 text-xs text-zinc-500">
                 <span className={cn("font-medium", easeColor(d))}>
@@ -70,7 +85,9 @@ export function MatchCard({ match }: { match: Match }) {
                 <span>|</span>
                 <span>{match.cost}</span>
                 <span>|</span>
-                <span>{match.votes} reports</span>
+                <span>{communityData && communityData.communityVotes > 0
+                  ? `Based on ${communityData.communityVotes} reports`
+                  : `${match.votes} reports`}</span>
               </div>
             </div>
 
@@ -93,9 +110,11 @@ export function MatchCard({ match }: { match: Match }) {
               )}
               <div className="text-right">
                 <div className="text-lg font-bold text-zinc-100">
-                  {formatPercent(match.matchRate)}
+                  {formatPercent(effectiveRate)}
                 </div>
-                <div className="text-xs text-zinc-500">match rate</div>
+                <div className="text-xs text-zinc-500">
+                  {communityData && communityData.communityVotes > 0 ? "community rate" : "match rate"}
+                </div>
               </div>
               {expanded ? (
                 <ChevronUp className="h-4 w-4 text-zinc-500" />
@@ -108,8 +127,8 @@ export function MatchCard({ match }: { match: Match }) {
           <div className="mt-3">
             <div className="h-1.5 rounded-full bg-zinc-800 overflow-hidden">
               <div
-                className={cn("h-full rounded-full transition-all", rateColor(match.matchRate))}
-                style={{ width: `${match.matchRate}%` }}
+                className={cn("h-full rounded-full transition-all", rateColor(effectiveRate))}
+                style={{ width: `${effectiveRate}%` }}
               />
             </div>
           </div>
@@ -181,6 +200,28 @@ export function MatchCard({ match }: { match: Match }) {
                   Tips from Reports
                 </h4>
                 <p className="text-sm text-zinc-300">{match.tips}</p>
+              </div>
+            )}
+
+            {activeProfile && (
+              <div className="mb-4 rounded-lg border border-zinc-800 bg-zinc-900/60 p-3">
+                <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
+                  Share Your Experience
+                </h4>
+                <p className="text-xs text-zinc-500 mb-3">
+                  Help the community by reporting your outcome.
+                </p>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  className="w-full"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setOutcomeOpen(true)
+                  }}
+                >
+                  Report Your Outcome
+                </Button>
               </div>
             )}
 
