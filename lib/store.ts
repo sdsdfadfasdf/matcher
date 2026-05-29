@@ -22,6 +22,7 @@ type FilterState = {
   // Profile
   activeProfile: Profile | null
   favorites: string[]
+  expiredFlags: string[]
   outcomeReports: OutcomeReport[]
 
   setCategory: (c: Category) => void
@@ -45,6 +46,9 @@ type FilterState = {
   addOutcomeReport: (report: OutcomeReport) => void
   removeOutcomeReport: (reportId: string) => void
   updateOutcomeReport: (reportId: string, updates: Partial<OutcomeReport>) => void
+
+  // Expired flag action
+  toggleExpiredFlag: (matchId: string) => void
 }
 
 export const useFilters = create<FilterState>((set, get) => ({
@@ -57,6 +61,7 @@ export const useFilters = create<FilterState>((set, get) => ({
   memberships: [],
   activeProfile: null,
   favorites: [],
+  expiredFlags: [],
   outcomeReports: [],
 
   setCategory: (category) => set({ category }),
@@ -113,6 +118,7 @@ export const useFilters = create<FilterState>((set, get) => ({
         activeProfile: p,
         memberships: p.memberships,
         favorites: p.favorites,
+        expiredFlags: p.expiredFlags ?? [],
         outcomeReports: p.outcomeReports ?? [],
         view: p.preferences.defaultView,
         sort: p.preferences.defaultSort,
@@ -122,6 +128,7 @@ export const useFilters = create<FilterState>((set, get) => ({
         activeProfile: null,
         memberships: [],
         favorites: [],
+        expiredFlags: [],
         outcomeReports: [],
         view: "grid",
         sort: "ease",
@@ -165,6 +172,7 @@ export const useFilters = create<FilterState>((set, get) => ({
       set({
         memberships: p.memberships,
         favorites: p.favorites,
+        expiredFlags: p.expiredFlags ?? [],
         outcomeReports: p.outcomeReports ?? [],
         view: p.preferences.defaultView,
         sort: p.preferences.defaultSort,
@@ -207,4 +215,16 @@ export const useFilters = create<FilterState>((set, get) => ({
       invalidateCommunityCache()
       return { outcomeReports }
     }),
+
+  toggleExpiredFlag: (matchId) => {
+    const s = get()
+    const flags = s.expiredFlags.includes(matchId)
+      ? s.expiredFlags.filter((id) => id !== matchId)
+      : [...s.expiredFlags, matchId]
+    const p = s.activeProfile
+    if (p) {
+      updateProfile({ ...p, expiredFlags: flags })
+    }
+    set({ expiredFlags: flags })
+  },
 }))

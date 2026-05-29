@@ -23,6 +23,7 @@ export type Match = {
   }
   tips: string
   votes: number
+  lastVerified?: string
 }
 
 export type OutcomeResult = "approved" | "denied" | "pending"

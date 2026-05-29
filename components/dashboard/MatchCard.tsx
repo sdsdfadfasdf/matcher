@@ -2,13 +2,14 @@
 
 import { useState, useMemo } from "react"
 import { motion } from "motion/react"
-import { ChevronDown, ChevronUp, Heart, Send } from "lucide-react"
+import { ChevronDown, ChevronUp, Heart, Send, Flag } from "lucide-react"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { EmailModal } from "@/components/ui/EmailModal"
 import { OutcomeModal } from "@/components/ui/OutcomeModal"
-import { cn, formatPercent, easeLabel, easeColor, easeBg, rateColor, rateBorder, daysAgo } from "@/lib/utils"
+import { cn, formatPercent, easeLabel, easeColor, easeBg, rateColor, rateBorder } from "@/lib/utils"
 import { getCommunityData } from "@/lib/community"
+import { getFreshness, getExpiredFlagCount } from "@/lib/freshness"
 import { findEligibleSources } from "@/lib/eligibility"
 import { useFilters } from "@/lib/store"
 import type { Match } from "@/lib/data/matches"
@@ -26,8 +27,13 @@ export function MatchCard({ match }: { match: Match }) {
   const favorites = useFilters((s) => s.favorites)
   const toggleFavorite = useFilters((s) => s.toggleFavorite)
   const activeProfile = useFilters((s) => s.activeProfile)
+  const expiredFlags = useFilters((s) => s.expiredFlags)
+  const toggleExpiredFlag = useFilters((s) => s.toggleExpiredFlag)
 
   const isFav = favorites.includes(match.id)
+  const freshness = getFreshness(match)
+  const isFlagged = expiredFlags.includes(match.id)
+  const flagCount = getExpiredFlagCount(match.id)
 
   const eligibleSources =
     eligibilityMode && memberships.length > 0
@@ -70,12 +76,10 @@ export function MatchCard({ match }: { match: Match }) {
                         ? "Auto"
                         : "Cruise"}
                 </Badge>
-                {communityData && communityData.communityVotes > 0 && (
-                  communityData.lastReportDate && daysAgo(communityData.lastReportDate) <= 7 ? (
-                    <Badge variant="emerald">Verified recently</Badge>
-                  ) : communityData.lastReportDate ? (
-                    <Badge variant="zinc">Last report {daysAgo(communityData.lastReportDate)}d ago</Badge>
-                  ) : null
+                {communityData && communityData.communityVotes > 0 && communityData.lastReportDate ? (
+                  <Badge variant="emerald">Verified recently</Badge>
+                ) : (
+                  <Badge variant={freshness.variant}>{freshness.label}</Badge>
                 )}
               </div>
               <div className="flex items-center gap-2 text-xs text-zinc-500">
@@ -234,6 +238,30 @@ export function MatchCard({ match }: { match: Match }) {
               <Send className="h-4 w-4" />
               Compose Email
             </Button>
+
+            {activeProfile && (
+              <div className="mt-3 flex items-center justify-between">
+                <button
+                  aria-label={isFlagged ? "Remove expired flag" : "Flag as expired"}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    toggleExpiredFlag(match.id)
+                  }}
+                  className={cn(
+                    "flex items-center gap-1.5 text-xs transition-colors cursor-pointer",
+                    isFlagged
+                      ? "text-red-400 hover:text-red-300"
+                      : "text-zinc-600 hover:text-zinc-400",
+                  )}
+                >
+                  <Flag className={`h-3 w-3 ${isFlagged ? "fill-red-400" : ""}`} />
+                  {isFlagged ? "Flagged as expired" : "Flag as expired"}
+                  {flagCount > 0 && (
+                    <span className="text-zinc-600">({flagCount} flagged)</span>
+                  )}
+                </button>
+              </div>
+            )}
           </motion.div>
         )}
       </motion.div>

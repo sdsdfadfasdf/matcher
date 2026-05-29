@@ -10,6 +10,7 @@ import { EmailModal } from "@/components/ui/EmailModal"
 import { findEligibleSources } from "@/lib/eligibility"
 import { useFilters } from "@/lib/store"
 import { getCommunityData } from "@/lib/community"
+import { getFreshness } from "@/lib/freshness"
 import { motion } from "motion/react"
 
 export function RankingTable({ matches }: { matches: Match[] }) {
@@ -54,6 +55,7 @@ export function RankingTable({ matches }: { matches: Match[] }) {
               {matches.map((m) => {
                 const isExpanded = expandedId === m.id
                 const communityData = getCommunityData(m.id)
+                const freshness = getFreshness(m)
                 const effectiveRate = communityData && communityData.communityVotes > 0
                   ? communityData.communityMatchRate
                   : m.matchRate
@@ -85,7 +87,16 @@ export function RankingTable({ matches }: { matches: Match[] }) {
                         </button>
                       </td>
                       <td className="py-3 px-4">
-                        <span className="font-medium text-zinc-200">{m.program}</span>
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium text-zinc-200">{m.program}</span>
+                          <span className={cn(
+                            "text-[10px]",
+                            freshness.variant === "emerald" ? "text-emerald-500" :
+                            freshness.variant === "amber" ? "text-amber-500" : "text-red-500",
+                          )}>
+                            {freshness.label}
+                          </span>
+                        </div>
                       </td>
                       <td className="py-3 px-4">
                         <Badge variant="zinc">

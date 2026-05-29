@@ -16,6 +16,7 @@ export type Profile = {
   favorites: string[]
   preferences: ProfilePreferences
   outcomeReports: OutcomeReport[]
+  expiredFlags: string[]
 }
 
 const PROFILES_KEY = "statusmatch_profiles"
@@ -33,7 +34,8 @@ function isValidProfile(item: unknown): item is Profile {
     typeof p.name === "string" &&
     Array.isArray(p.memberships) &&
     Array.isArray(p.favorites) &&
-    (typeof p.outcomeReports === "undefined" || Array.isArray(p.outcomeReports))
+    (typeof p.outcomeReports === "undefined" || Array.isArray(p.outcomeReports)) &&
+    (typeof p.expiredFlags === "undefined" || Array.isArray(p.expiredFlags))
   )
 }
 
@@ -93,6 +95,7 @@ export function createProfile(name: string): Profile {
     memberships: [],
     favorites: [],
     outcomeReports: [],
+    expiredFlags: [],
     preferences: { defaultView: "grid", defaultSort: "ease" },
   }
   profiles.push(profile)
