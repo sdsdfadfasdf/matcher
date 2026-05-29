@@ -44,6 +44,16 @@ export type CommunityMatchData = {
   lastReportDate: string | null
 }
 
+export type PipelineStage = "planning" | "applied" | "approved" | "denied"
+
+export type PipelineItem = {
+  id: string
+  matchId: string
+  stage: PipelineStage
+  addedAt: string
+  notes?: string
+}
+
 export const matches: Match[] = [
   // ── HOTELS ──────────────────────────────────────
   {

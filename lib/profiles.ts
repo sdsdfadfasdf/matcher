@@ -1,5 +1,5 @@
 import type { UserStatus } from "./eligibility"
-import type { OutcomeReport } from "./data/matches"
+import type { OutcomeReport, PipelineItem } from "./data/matches"
 import type { SortKey, ViewMode } from "./store"
 
 export type ProfilePreferences = {
@@ -17,6 +17,7 @@ export type Profile = {
   preferences: ProfilePreferences
   outcomeReports: OutcomeReport[]
   expiredFlags: string[]
+  pipeline: PipelineItem[]
 }
 
 const PROFILES_KEY = "statusmatch_profiles"
@@ -35,7 +36,8 @@ function isValidProfile(item: unknown): item is Profile {
     Array.isArray(p.memberships) &&
     Array.isArray(p.favorites) &&
     (typeof p.outcomeReports === "undefined" || Array.isArray(p.outcomeReports)) &&
-    (typeof p.expiredFlags === "undefined" || Array.isArray(p.expiredFlags))
+    (typeof p.expiredFlags === "undefined" || Array.isArray(p.expiredFlags)) &&
+    (typeof p.pipeline === "undefined" || Array.isArray(p.pipeline))
   )
 }
 
@@ -96,6 +98,7 @@ export function createProfile(name: string): Profile {
     favorites: [],
     outcomeReports: [],
     expiredFlags: [],
+    pipeline: [],
     preferences: { defaultView: "grid", defaultSort: "ease" },
   }
   profiles.push(profile)

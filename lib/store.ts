@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import type { UserStatus } from "./eligibility"
-import type { OutcomeReport } from "./data/matches"
+import type { OutcomeReport, PipelineItem, PipelineStage } from "./data/matches"
 import type { Profile } from "./profiles"
 import { updateProfile } from "./profiles"
 import { invalidateCommunityCache } from "./community"
@@ -24,6 +24,7 @@ type FilterState = {
   favorites: string[]
   expiredFlags: string[]
   outcomeReports: OutcomeReport[]
+  pipeline: PipelineItem[]
 
   setCategory: (c: Category) => void
   setDifficulty: (d: Difficulty) => void
@@ -49,6 +50,11 @@ type FilterState = {
 
   // Expired flag action
   toggleExpiredFlag: (matchId: string) => void
+
+  // Pipeline actions
+  addToPipeline: (matchId: string, stage?: PipelineStage, notes?: string) => void
+  movePipelineItem: (id: string, stage: PipelineStage) => void
+  removePipelineItem: (id: string) => void
 }
 
 export const useFilters = create<FilterState>((set, get) => ({
@@ -63,6 +69,7 @@ export const useFilters = create<FilterState>((set, get) => ({
   favorites: [],
   expiredFlags: [],
   outcomeReports: [],
+  pipeline: [],
 
   setCategory: (category) => set({ category }),
   setDifficulty: (difficulty) => set({ difficulty }),
@@ -120,6 +127,7 @@ export const useFilters = create<FilterState>((set, get) => ({
         favorites: p.favorites,
         expiredFlags: p.expiredFlags ?? [],
         outcomeReports: p.outcomeReports ?? [],
+        pipeline: p.pipeline ?? [],
         view: p.preferences.defaultView,
         sort: p.preferences.defaultSort,
       })
@@ -130,6 +138,7 @@ export const useFilters = create<FilterState>((set, get) => ({
         favorites: [],
         expiredFlags: [],
         outcomeReports: [],
+        pipeline: [],
         view: "grid",
         sort: "ease",
       })
@@ -174,6 +183,7 @@ export const useFilters = create<FilterState>((set, get) => ({
         favorites: p.favorites,
         expiredFlags: p.expiredFlags ?? [],
         outcomeReports: p.outcomeReports ?? [],
+        pipeline: p.pipeline ?? [],
         view: p.preferences.defaultView,
         sort: p.preferences.defaultSort,
       })
@@ -226,5 +236,44 @@ export const useFilters = create<FilterState>((set, get) => ({
       updateProfile({ ...p, expiredFlags: flags })
     }
     set({ expiredFlags: flags })
+  },
+
+  addToPipeline: (matchId, stage = "planning", notes) => {
+    const s = get()
+    const item: PipelineItem = {
+      id: crypto.randomUUID(),
+      matchId,
+      stage,
+      addedAt: new Date().toISOString(),
+      notes,
+    }
+    const pipeline = [...s.pipeline, item]
+    const p = s.activeProfile
+    if (p) {
+      updateProfile({ ...p, pipeline })
+    }
+    set({ pipeline })
+  },
+
+  movePipelineItem: (id, stage) => {
+    const s = get()
+    const pipeline = s.pipeline.map((item) =>
+      item.id === id ? { ...item, stage } : item,
+    )
+    const p = s.activeProfile
+    if (p) {
+      updateProfile({ ...p, pipeline })
+    }
+    set({ pipeline })
+  },
+
+  removePipelineItem: (id) => {
+    const s = get()
+    const pipeline = s.pipeline.filter((item) => item.id !== id)
+    const p = s.activeProfile
+    if (p) {
+      updateProfile({ ...p, pipeline })
+    }
+    set({ pipeline })
   },
 }))

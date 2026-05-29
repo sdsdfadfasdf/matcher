@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react"
 import { motion } from "motion/react"
-import { ChevronDown, ChevronUp, Heart, Send, Flag } from "lucide-react"
+import { ChevronDown, ChevronUp, Heart, Send, Flag, Plus } from "lucide-react"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { EmailModal } from "@/components/ui/EmailModal"
@@ -29,11 +29,14 @@ export function MatchCard({ match }: { match: Match }) {
   const activeProfile = useFilters((s) => s.activeProfile)
   const expiredFlags = useFilters((s) => s.expiredFlags)
   const toggleExpiredFlag = useFilters((s) => s.toggleExpiredFlag)
+  const addToPipeline = useFilters((s) => s.addToPipeline)
+  const pipeline = useFilters((s) => s.pipeline)
 
   const isFav = favorites.includes(match.id)
   const freshness = getFreshness(match)
   const isFlagged = expiredFlags.includes(match.id)
   const flagCount = getExpiredFlagCount(match.id)
+  const isInPipeline = pipeline.some((p) => p.matchId === match.id)
 
   const eligibleSources =
     eligibilityMode && memberships.length > 0
@@ -226,6 +229,30 @@ export function MatchCard({ match }: { match: Match }) {
                 >
                   Report Your Outcome
                 </Button>
+              </div>
+            )}
+
+            {activeProfile && (
+              <div className="mb-4">
+                {isInPipeline ? (
+                  <div className="rounded-lg border border-zinc-700/50 bg-zinc-800/30 p-3 text-center">
+                    <p className="text-xs text-emerald-400 font-medium">Added to Pipeline</p>
+                    <p className="text-[10px] text-zinc-500 mt-0.5">Track progress in the pipeline board below</p>
+                  </div>
+                ) : (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="w-full"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      addToPipeline(match.id)
+                    }}
+                  >
+                    <Plus className="h-4 w-4" />
+                    Add to Pipeline
+                  </Button>
+                )}
               </div>
             )}
 
