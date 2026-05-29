@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useEffect, useState } from "react"
-import { LayoutGrid, List, UserCheck, Globe } from "lucide-react"
+import { LayoutGrid, List, UserCheck, Globe, Zap } from "lucide-react"
 import { Header } from "@/components/layout/Header"
 import { StatsBar } from "@/components/dashboard/StatsBar"
 import { CategoryFilter } from "@/components/dashboard/CategoryFilter"
@@ -12,6 +12,7 @@ import { RankingTable } from "@/components/dashboard/RankingTable"
 import { MembershipSelector } from "@/components/dashboard/MembershipSelector"
 import { StrategicUnlocks } from "@/components/dashboard/StrategicUnlocks"
 import { MyReports } from "@/components/dashboard/MyReports"
+import { ReverseLookup } from "@/components/dashboard/ReverseLookup"
 import { matches } from "@/lib/data/matches"
 import { filterEligible } from "@/lib/eligibility"
 import { useFilters, type SortKey } from "@/lib/store"
@@ -51,6 +52,8 @@ export default function Home() {
   const setSort = useFilters((s) => s.setSort)
   const setView = useFilters((s) => s.setView)
   const setEligibilityMode = useFilters((s) => s.setEligibilityMode)
+  const clearMemberships = useFilters((s) => s.clearMemberships)
+  const [quickLookup, setQuickLookup] = useState(false)
   const [showCreateProfile, setShowCreateProfile] = useState(false)
   const [profileLoaded, setProfileLoaded] = useState(false)
 
@@ -117,9 +120,13 @@ export default function Home() {
 
         <div className="flex items-center gap-2">
           <button
-            onClick={() => setEligibilityMode(false)}
+            onClick={() => {
+              setQuickLookup(false)
+              setEligibilityMode(false)
+              clearMemberships()
+            }}
             className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
-              !eligibilityMode
+              !eligibilityMode && !quickLookup
                 ? "bg-zinc-100 text-zinc-900"
                 : "bg-zinc-800/50 text-zinc-400 hover:text-zinc-200"
             }`}
@@ -128,9 +135,12 @@ export default function Home() {
             Browse All
           </button>
           <button
-            onClick={() => setEligibilityMode(true)}
+            onClick={() => {
+              setQuickLookup(false)
+              setEligibilityMode(true)
+            }}
             className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
-              eligibilityMode
+              eligibilityMode && !quickLookup
                 ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
                 : "bg-zinc-800/50 text-zinc-400 hover:text-zinc-200"
             }`}
@@ -138,14 +148,31 @@ export default function Home() {
             <UserCheck className="h-4 w-4" />
             My Matches
           </button>
+          <button
+            onClick={() => {
+              setQuickLookup(true)
+              setEligibilityMode(true)
+              clearMemberships()
+            }}
+            className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
+              quickLookup
+                ? "bg-purple-500/20 text-purple-400 border border-purple-500/30"
+                : "bg-zinc-800/50 text-zinc-400 hover:text-zinc-200"
+            }`}
+          >
+            <Zap className="h-4 w-4" />
+            Quick Lookup
+          </button>
         </div>
 
-        {eligibilityMode && (
+        {eligibilityMode && !quickLookup && (
           <>
             <MembershipSelector />
             <StrategicUnlocks />
           </>
         )}
+
+        {quickLookup && <ReverseLookup />}
 
         {activeProfile && <MyReports />}
 
@@ -186,9 +213,11 @@ export default function Home() {
 
         <div className="flex items-center justify-between">
           <p className="text-sm text-zinc-500">
-            {eligibilityMode && memberships.length > 0
-              ? `${filtered.length} matches available with your status`
-              : `Showing ${filtered.length} of ${matches.length} programs`}
+            {quickLookup && memberships.length > 0
+              ? `${filtered.length} matches available with ${memberships[0].program} ${memberships[0].tier}`
+              : eligibilityMode && memberships.length > 0
+                ? `${filtered.length} matches available with your status`
+                : `Showing ${filtered.length} of ${matches.length} programs`}
           </p>
           <div className="flex items-center gap-1 text-xs text-zinc-500">
             <span className="mr-1">Sort by:</span>
