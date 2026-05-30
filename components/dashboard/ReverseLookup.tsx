@@ -10,10 +10,10 @@ import { useFilters } from "@/lib/store"
 import type { MatchCategory } from "@/lib/data/matches"
 
 const catIcons: Record<string, string> = {
-  airline: "text-blue-400",
-  hotel: "text-emerald-400",
-  auto: "text-amber-400",
-  cruise: "text-cyan-400",
+  airline: "text-[#0066b1]",
+  hotel: "text-[#1c69d4]",
+  auto: "text-[#e22718]",
+  cruise: "text-zinc-400",
 }
 
 export function ReverseLookup() {
@@ -54,10 +54,10 @@ export function ReverseLookup() {
   }
 
   return (
-    <Card className="border-purple-500/20 space-y-3">
+    <Card className="space-y-3">
       <div className="flex items-center gap-2">
-        <Zap className="h-4 w-4 text-purple-400" />
-        <h3 className="text-sm font-semibold text-zinc-200">Quick Lookup</h3>
+        <Zap className="h-4 w-4 text-[#e22718]" />
+        <h3 className="text-sm font-bold text-white uppercase tracking-wider">Quick Lookup</h3>
       </div>
       <p className="text-xs text-zinc-500">
         Select a loyalty program and tier to see what you can get.
@@ -65,7 +65,7 @@ export function ReverseLookup() {
 
       {!selectedProgram ? (
         <div className="relative">
-          <div className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-2">
+          <div className="flex items-center gap-2 border border-[#3c3c3c] bg-black px-3 py-2">
             <Search className="h-4 w-4 text-zinc-500 shrink-0" />
             <input
               type="text"
@@ -82,7 +82,7 @@ export function ReverseLookup() {
           </div>
 
           {open && (query || filtered.length > 0) && (
-            <div className="absolute left-0 right-0 top-full mt-1 rounded-lg border border-zinc-700 bg-zinc-900 shadow-xl z-50 max-h-56 overflow-y-auto">
+            <div className="absolute left-0 right-0 top-full mt-1 border border-[#3c3c3c] bg-[#1a1a1a] shadow-xl z-50 max-h-56 overflow-y-auto">
               {filtered.map((p) => (
                 <button
                   key={p.program}
@@ -116,7 +116,7 @@ export function ReverseLookup() {
             <button
               aria-label="Clear selection"
               onClick={clearSelection}
-              className="rounded-lg p-1.5 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800 transition-colors cursor-pointer"
+              className="p-1.5 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800 transition-colors cursor-pointer"
             >
               <X className="h-4 w-4" />
             </button>
@@ -133,8 +133,8 @@ export function ReverseLookup() {
                     key={tier}
                     onClick={() => selectTier(tier)}
                     className={cn(
-                      "rounded-lg border px-3 py-1.5 text-sm transition-all cursor-pointer",
-                      "border-zinc-700 bg-zinc-800/50 text-zinc-300 hover:border-purple-500/40 hover:bg-purple-500/10 hover:text-purple-400",
+                      "border px-3 py-1.5 text-sm transition-all cursor-pointer",
+                      "border-zinc-700 bg-zinc-800/50 text-zinc-300 hover:border-[#e22718]/40 hover:bg-[#e22718]/10 hover:text-[#e22718]",
                     )}
                   >
                     {tier}
@@ -143,8 +143,8 @@ export function ReverseLookup() {
               </div>
             </div>
           ) : (
-            <div className="rounded-lg border border-purple-500/20 bg-purple-500/5 p-3">
-              <p className="text-sm text-purple-300">
+            <div className="border border-[#e22718]/20 bg-[#e22718]/5 p-3">
+              <p className="text-sm text-zinc-300">
                 Showing matches for {" "}
                 <span className="font-semibold">{selectedProgram.program} {selectedTier}</span>
               </p>

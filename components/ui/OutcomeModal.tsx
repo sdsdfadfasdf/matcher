@@ -89,25 +89,25 @@ export function OutcomeModal({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-lg rounded-2xl border border-zinc-800 bg-zinc-950 p-6 shadow-2xl"
+            className="relative w-full max-w-lg border border-[#3c3c3c] bg-black p-6 shadow-2xl"
           >
             <button
               aria-label="Close outcome report modal"
               onClick={handleClose}
-              className="absolute right-4 top-4 rounded-lg p-1 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
+              className="absolute right-4 top-4 p-1 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>
 
             {!submitted ? (
               <>
-                <h2 className="text-lg font-semibold text-zinc-100 mb-1">
+                <h2 className="text-lg font-bold text-white uppercase tracking-wider mb-1">
                   {isEditing ? "Edit Your Report" : "Report Your Outcome"}
                 </h2>
                 <p className="text-sm text-zinc-400 mb-4">{match.program}</p>
 
                 {!activeProfile && (
-                  <p className="text-xs text-amber-400 mb-4 rounded-lg border border-amber-500/20 bg-amber-500/10 px-3 py-2">
+                  <p className="text-xs text-amber-400 mb-4 border border-amber-500/20 bg-amber-500/10 px-3 py-2">
                     Create a profile to track your reports across sessions.
                   </p>
                 )}
@@ -118,16 +118,16 @@ export function OutcomeModal({
                   </p>
                   <div className="flex gap-3">
                     {([
-                      { value: "approved" as OutcomeResult, label: "Approved", border: "border-emerald-500/40", bg: "bg-emerald-500/10", text: "text-emerald-400", selected: "border-emerald-400 bg-emerald-500/20" },
-                      { value: "denied" as OutcomeResult, label: "Denied", border: "border-red-500/40", bg: "bg-red-500/10", text: "text-red-400", selected: "border-red-400 bg-red-500/20" },
-                      { value: "pending" as OutcomeResult, label: "Pending", border: "border-amber-500/40", bg: "bg-amber-500/10", text: "text-amber-400", selected: "border-amber-400 bg-amber-500/20" },
+                      { value: "approved" as OutcomeResult, label: "Approved", border: "border-[#1c69d4]/40", bg: "bg-[#1c69d4]/10", text: "text-[#1c69d4]", selected: "border-[#0066b1] bg-[#0066b1]/20" },
+                      { value: "denied" as OutcomeResult, label: "Denied", border: "border-[#e22718]/40", bg: "bg-[#e22718]/10", text: "text-[#e22718]", selected: "border-[#e22718] bg-[#e22718]/20" },
+                      { value: "pending" as OutcomeResult, label: "Pending", border: "border-zinc-500/40", bg: "bg-zinc-500/10", text: "text-zinc-400", selected: "border-white bg-zinc-800" },
                     ]).map((opt) => (
                       <button
                         key={opt.value}
                         aria-pressed={outcome === opt.value}
                         onClick={() => setOutcome(opt.value)}
                         className={cn(
-                          "flex-1 rounded-xl border px-4 py-3 text-sm font-medium transition-all cursor-pointer text-center",
+                          "flex-1 border px-4 py-3 text-sm font-bold uppercase tracking-wider transition-all cursor-pointer text-center",
                           outcome === opt.value
                             ? `${opt.selected} ${opt.text}`
                             : `${opt.border} ${opt.bg} ${opt.text} opacity-60 hover:opacity-100`,
@@ -141,13 +141,13 @@ export function OutcomeModal({
 
                 <div className="space-y-3 mb-4">
                   <input
-                    className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600"
+                    className="w-full border border-[#3c3c3c] bg-[#1a1a1a] px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#0066b1]/50"
                     placeholder="Your tier (e.g., Hilton Diamond)"
                     value={tier}
                     onChange={(e) => setTier(e.target.value)}
                   />
                   <textarea
-                    className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600 min-h-[80px] resize-y"
+                    className="w-full border border-[#3c3c3c] bg-[#1a1a1a] px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#0066b1]/50 min-h-[80px] resize-y"
                     placeholder="Any tips for the community? (optional)"
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
@@ -176,7 +176,7 @@ export function OutcomeModal({
                   </p>
 
                   {totalCommunityVotes > 0 && (
-                    <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 w-full mb-6">
+                    <div className="border border-[#3c3c3c] bg-[#1a1a1a] p-4 w-full mb-6">
                       <div className="text-3xl font-bold text-zinc-100 mb-1">
                         {formatPercent(communityData!.communityMatchRate)}
                       </div>

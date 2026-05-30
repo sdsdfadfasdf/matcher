@@ -92,7 +92,7 @@ export function ProfileSwitcher() {
         <button
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors cursor-pointer"
+          className="flex items-center gap-2 px-3 py-1.5 text-sm text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors cursor-pointer"
         >
           <User className="h-4 w-4" />
           {activeProfile ? activeProfile.name : "No Profile"}
@@ -104,7 +104,7 @@ export function ProfileSwitcher() {
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 4 }}
-              className="absolute right-0 top-full mt-1 w-56 rounded-lg border border-zinc-700 bg-zinc-900 shadow-xl z-50 py-1"
+              className="absolute right-0 top-full mt-1 w-56 border border-[#3c3c3c] bg-[#1a1a1a] shadow-xl z-50 py-1"
             >
               <div className="px-3 py-2 border-b border-zinc-800">
                 <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">

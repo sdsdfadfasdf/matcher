@@ -38,39 +38,39 @@ function getStats() {
       label: "Total Programs",
       value: matches.length,
       icon: Award,
-      color: "text-amber-400",
-      bg: "bg-amber-500/10",
+      color: "text-white",
+      bg: "bg-[#0066b1]/20",
     },
     {
       label: "Best Match Rate",
       value: `${Math.round(bestRate)}%`,
       detail: bestProgram,
       icon: TrendingUp,
-      color: "text-emerald-400",
-      bg: "bg-emerald-500/10",
+      color: "text-[#0066b1]",
+      bg: "bg-[#0066b1]/10",
     },
     {
       label: "Easiest Category",
       value: categoryLabel,
       detail: `${maxCount} easy matches`,
       icon: Zap,
-      color: "text-blue-400",
-      bg: "bg-blue-500/10",
+      color: "text-white",
+      bg: "bg-[#1c69d4]/20",
     },
     {
       label: "Free Matches",
       value: matches.filter((m) => m.cost === "Free").length,
       detail: "No cost to apply",
       icon: DollarSign,
-      color: "text-violet-400",
-      bg: "bg-violet-500/10",
+      color: "text-white",
+      bg: "bg-zinc-800",
     },
     {
       label: "Community Reports",
       value: getTotalCommunityReports(),
       icon: Users,
-      color: "text-purple-400",
-      bg: "bg-purple-500/10",
+      color: "text-[#e22718]",
+      bg: "bg-[#e22718]/10",
     },
   ]
 }
@@ -81,7 +81,7 @@ export function StatsBar() {
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {stats.map((s) => (
         <Card key={s.label} className="flex items-center gap-4">
-          <div className={`rounded-lg p-2.5 ${s.bg}`}>
+          <div className={`p-2.5 ${s.bg}`}>
             <s.icon className={`h-5 w-5 ${s.color}`} />
           </div>
           <div>

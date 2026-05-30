@@ -71,9 +71,9 @@ export function MembershipSelector() {
   }
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 space-y-3" ref={containerRef}>
+    <div className="border border-[#3c3c3c] bg-[#1a1a1a] p-4 space-y-3" ref={containerRef}>
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-zinc-200">Your Memberships</h3>
+        <h3 className="text-sm font-bold text-white uppercase tracking-wider">Your Memberships</h3>
         {memberships.length > 0 && (
           <button
             onClick={clearMemberships}
@@ -115,7 +115,7 @@ export function MembershipSelector() {
       </div>
 
       <div className="relative">
-        <div className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/50 px-3 py-2">
+        <div className="flex items-center gap-2 border border-[#3c3c3c] bg-black px-3 py-2">
           <Search className="h-4 w-4 text-zinc-500 shrink-0" />
           <input
             type="text"
@@ -138,7 +138,7 @@ export function MembershipSelector() {
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 4 }}
-              className="absolute left-0 right-0 top-full mt-1 rounded-lg border border-zinc-700 bg-zinc-900 shadow-xl z-50 max-h-64 overflow-y-auto"
+              className="absolute left-0 right-0 top-full mt-1 border border-[#3c3c3c] bg-[#1a1a1a] shadow-xl z-50 max-h-64 overflow-y-auto"
             >
               {selectedProgram ? (
                 <div>

@@ -55,36 +55,36 @@ export function EmailModal({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-lg rounded-2xl border border-zinc-800 bg-zinc-950 p-6 shadow-2xl"
+            className="relative w-full max-w-lg border border-[#3c3c3c] bg-black p-6 shadow-2xl"
           >
             <button
               aria-label="Close email modal"
               onClick={onClose}
-              className="absolute right-4 top-4 rounded-lg p-1 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
+              className="absolute right-4 top-4 p-1 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>
 
-            <h2 className="text-lg font-semibold text-zinc-100 mb-1">
+            <h2 className="text-lg font-bold text-white uppercase tracking-wider mb-1">
               Status Match Email
             </h2>
             <p className="text-sm text-zinc-400 mb-4">{match.program}</p>
 
             <div className="grid gap-3 mb-4">
               <input
-                className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600"
+                className="w-full border border-[#3c3c3c] bg-[#1a1a1a] px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#0066b1]/50"
                 placeholder="Your Name"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
               />
               <input
-                className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600"
+                className="w-full border border-[#3c3c3c] bg-[#1a1a1a] px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#0066b1]/50"
                 placeholder="Your Current Elite Status (e.g., Hilton Diamond)"
                 value={userStatus}
                 onChange={(e) => setUserStatus(e.target.value)}
               />
               <input
-                className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600"
+                className="w-full border border-[#3c3c3c] bg-[#1a1a1a] px-3 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#0066b1]/50"
                 placeholder="Your Member Number (optional)"
                 value={userMemberId}
                 onChange={(e) => setUserMemberId(e.target.value)}
@@ -103,7 +103,7 @@ export function EmailModal({
               </div>
             )}
 
-            <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-3 mb-4 max-h-48 overflow-y-auto">
+            <div className="border border-[#3c3c3c] bg-[#1a1a1a] p-3 mb-4 max-h-48 overflow-y-auto">
               <p className="text-xs font-medium text-zinc-500 mb-1">
                 Subject: {subject}
               </p>
@@ -114,7 +114,7 @@ export function EmailModal({
 
             <div className="flex gap-3">
               <Button
-                variant="success"
+                variant="m-blue"
                 size="md"
                 className="flex-1"
                 onClick={() => window.open(gmailUrl, "_blank")}

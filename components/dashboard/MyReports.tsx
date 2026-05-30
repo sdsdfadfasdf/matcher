@@ -66,7 +66,7 @@ export function MyReports() {
           onClick={() => setExpanded((v) => !v)}
           className="w-full flex items-center justify-between gap-2 px-4 pt-4 pb-2 text-left cursor-pointer"
         >
-          <h3 className="text-sm font-semibold text-zinc-200">
+          <h3 className="text-sm font-bold text-white uppercase tracking-wider">
             My Reports ({outcomeReports.length})
           </h3>
           {expanded ? (
@@ -88,7 +88,7 @@ export function MyReports() {
               return (
                 <div
                   key={r.id}
-                  className="rounded-lg border border-zinc-800 bg-zinc-900/60 p-3 flex items-center justify-between gap-4"
+                  className="border border-[#3c3c3c] bg-black/40 p-3 flex items-center justify-between gap-4"
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <Badge variant={badge.variant}>{badge.label}</Badge>

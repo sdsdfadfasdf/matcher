@@ -105,14 +105,14 @@ export default function Home() {
         />
 
         {profileLoaded && !activeProfile && (
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-6 text-center">
-            <p className="text-zinc-300 font-medium mb-2">Welcome to StatusMatch</p>
+          <div className="border border-[#3c3c3c] bg-[#1a1a1a] p-6 text-center">
+            <p className="text-white font-bold uppercase tracking-wider mb-2">Welcome to StatusMatch</p>
             <p className="text-sm text-zinc-500 mb-4">
               Create a profile to save your memberships and favorites across sessions.
             </p>
             <button
               onClick={() => setShowCreateProfile(true)}
-              className="inline-flex items-center gap-2 rounded-lg bg-zinc-100 text-zinc-900 px-4 py-2 text-sm font-medium hover:bg-zinc-200 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 bg-[#0066b1] text-white px-4 py-2 text-sm font-bold uppercase tracking-wider transition-colors hover:bg-[#005094] cursor-pointer"
             >
               Create Profile
             </button>
@@ -126,9 +126,9 @@ export default function Home() {
               setEligibilityMode(false)
               clearMemberships()
             }}
-            className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors cursor-pointer uppercase tracking-wider ${
               !eligibilityMode && !quickLookup
-                ? "bg-zinc-100 text-zinc-900"
+                ? "bg-white text-black"
                 : "bg-zinc-800/50 text-zinc-400 hover:text-zinc-200"
             }`}
           >
@@ -140,10 +140,10 @@ export default function Home() {
               setQuickLookup(false)
               setEligibilityMode(true)
             }}
-            className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors cursor-pointer uppercase tracking-wider ${
               eligibilityMode && !quickLookup
-                ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                : "bg-zinc-800/50 text-zinc-400 hover:text-zinc-200"
+                ? "bg-[#0066b1]/20 text-[#0066b1] border border-[#0066b1]/30"
+                : "bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 border border-transparent"
             }`}
           >
             <UserCheck className="h-4 w-4" />
@@ -155,10 +155,10 @@ export default function Home() {
               setEligibilityMode(true)
               clearMemberships()
             }}
-            className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors cursor-pointer uppercase tracking-wider ${
               quickLookup
-                ? "bg-purple-500/20 text-purple-400 border border-purple-500/30"
-                : "bg-zinc-800/50 text-zinc-400 hover:text-zinc-200"
+                ? "bg-[#e22718]/20 text-[#e22718] border border-[#e22718]/30"
+                : "bg-zinc-800/50 text-zinc-400 hover:text-zinc-200 border border-transparent"
             }`}
           >
             <Zap className="h-4 w-4" />
@@ -191,9 +191,9 @@ export default function Home() {
               <button
                 aria-label="Grid view"
                 onClick={() => setView("grid")}
-                className={`rounded-md p-1.5 cursor-pointer transition-colors ${
+                className={`p-1.5 cursor-pointer transition-colors ${
                   view === "grid"
-                    ? "bg-zinc-700 text-zinc-100"
+                    ? "bg-[#0066b1]/20 text-[#0066b1]"
                     : "text-zinc-500 hover:text-zinc-300"
                 }`}
               >
@@ -202,9 +202,9 @@ export default function Home() {
               <button
                 aria-label="Table view"
                 onClick={() => setView("table")}
-                className={`rounded-md p-1.5 cursor-pointer transition-colors ${
+                className={`p-1.5 cursor-pointer transition-colors ${
                   view === "table"
-                    ? "bg-zinc-700 text-zinc-100"
+                    ? "bg-[#0066b1]/20 text-[#0066b1]"
                     : "text-zinc-500 hover:text-zinc-300"
                 }`}
               >

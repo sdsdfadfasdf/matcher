@@ -8,15 +8,15 @@ export function DifficultyFilter() {
   const setDifficulty = useFilters((s) => s.setDifficulty)
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-1">
       {difficulties.map((d) => (
         <button
           key={d.id}
           aria-pressed={difficulty === d.id}
           onClick={() => setDifficulty(d.id)}
-          className={`rounded-full px-3 py-1 text-xs font-medium transition-colors cursor-pointer ${
+          className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
             difficulty === d.id
-              ? "bg-zinc-100 text-zinc-900"
+              ? "bg-[#0066b1] text-white"
               : "bg-zinc-800/50 text-zinc-400 hover:text-zinc-200"
           }`}
         >

@@ -22,8 +22,8 @@ export function StrategicUnlocks() {
   return (
     <Card className="space-y-3">
       <div className="flex items-center gap-2">
-        <Zap className="h-4 w-4 text-amber-400" />
-        <h3 className="text-sm font-semibold text-zinc-200">Strategic Unlocks</h3>
+        <Zap className="h-4 w-4 text-[#0066b1]" />
+        <h3 className="text-sm font-bold text-white uppercase tracking-wider">Strategic Unlocks</h3>
       </div>
       <p className="text-xs text-zinc-500">
         Get these matches first to unlock even more opportunities:
@@ -51,7 +51,7 @@ function SuggestionRow({ suggestion }: { suggestion: StrategicSuggestion }) {
   }
 
   return (
-    <div className="rounded-lg border border-zinc-800 bg-zinc-900/40">
+    <div className="border border-[#3c3c3c] bg-black/40">
       <button
         onClick={() => setExpanded((v) => !v)}
         className="w-full flex items-center justify-between gap-2 px-3 py-2.5 text-left cursor-pointer"
@@ -66,12 +66,12 @@ function SuggestionRow({ suggestion }: { suggestion: StrategicSuggestion }) {
             {suggestion.steppingStone.program}
           </span>
         </div>
-        <Badge variant="emerald" className="shrink-0">
+        <Badge variant="m-blue" className="shrink-0">
           +{suggestion.unlocks.length}
         </Badge>
       </button>
       {expanded && (
-        <div className="px-3 pb-3 pt-1 space-y-1 border-t border-zinc-800/50">
+        <div className="px-3 pb-3 pt-1 space-y-1 border-t border-[#3c3c3c]/50">
           {suggestion.unlocks.map((m) => (
             <button
               key={m.id}

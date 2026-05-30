@@ -16,13 +16,13 @@ export function SearchBar() {
         placeholder="Search programs..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="w-full rounded-lg border border-zinc-800 bg-zinc-900/60 pl-9 pr-9 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-600"
+        className="w-full border border-[#3c3c3c] bg-[#1a1a1a] pl-9 pr-9 py-2 text-sm text-zinc-200 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#0066b1]/50"
       />
       {search && (
         <button
           onClick={() => setSearch("")}
           aria-label="Clear search"
-          className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-0.5 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer"
         >
           <X className="h-3.5 w-3.5" />
         </button>

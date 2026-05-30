@@ -11,16 +11,16 @@ import type { PipelineStage, PipelineItem } from "@/lib/data/matches"
 
 const columns: { stage: PipelineStage; label: string; color: string }[] = [
   { stage: "planning", label: "Planning", color: "border-zinc-600" },
-  { stage: "applied", label: "Applied", color: "border-blue-600" },
-  { stage: "approved", label: "Approved", color: "border-emerald-600" },
-  { stage: "denied", label: "Denied", color: "border-red-600" },
+  { stage: "applied", label: "Applied", color: "border-[#0066b1]" },
+  { stage: "approved", label: "Approved", color: "border-[#1c69d4]" },
+  { stage: "denied", label: "Denied", color: "border-[#e22718]" },
 ]
 
 const stageBg: Record<PipelineStage, string> = {
-  planning: "bg-zinc-800/30",
-  applied: "bg-blue-500/5",
-  approved: "bg-emerald-500/5",
-  denied: "bg-red-500/5",
+  planning: "bg-[#1a1a1a]",
+  applied: "bg-[#1a1a1a]",
+  approved: "bg-[#1a1a1a]",
+  denied: "bg-[#1a1a1a]",
 }
 
 const stageBadge: Record<PipelineStage, "zinc" | "blue" | "emerald" | "red"> = {
@@ -62,8 +62,8 @@ export function ApplicationPipeline() {
 
   if (total === 0) {
     return (
-      <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-6">
-        <h3 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider mb-4">
+      <div className="border border-[#3c3c3c] bg-[#1a1a1a] p-6">
+        <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
           Application Pipeline
         </h3>
         <p className="text-sm text-zinc-600">
@@ -84,7 +84,7 @@ export function ApplicationPipeline() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="rounded-lg border border-zinc-700/50 bg-zinc-800/40 p-3 text-sm"
+        className="border border-[#3c3c3c] bg-black/40 p-3 text-sm"
       >
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
@@ -123,7 +123,7 @@ export function ApplicationPipeline() {
           <select
             value={item.stage}
             onChange={(e) => movePipelineItem(item.id, e.target.value as PipelineStage)}
-            className="w-full rounded-md border border-zinc-700 bg-zinc-900 px-2 py-1 text-xs text-zinc-300 cursor-pointer"
+            className="w-full border border-[#3c3c3c] bg-black px-2 py-1 text-xs text-zinc-300 cursor-pointer"
           >
             {columns.map((col) => (
               <option key={col.stage} value={col.stage}>
@@ -137,8 +137,8 @@ export function ApplicationPipeline() {
   }
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-6">
-      <h3 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider mb-4">
+    <div className="border border-[#3c3c3c] bg-[#1a1a1a] p-6">
+      <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
         Application Pipeline
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -147,7 +147,7 @@ export function ApplicationPipeline() {
           return (
             <div
               key={col.stage}
-              className={`rounded-lg border-t-2 ${col.color} ${stageBg[col.stage]} p-3`}
+              className={`border-t-2 ${col.color} ${stageBg[col.stage]} p-3`}
             >
               <div className="flex items-center justify-between mb-3">
                 <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">

@@ -37,11 +37,11 @@ export function RankingTable({ matches }: { matches: Match[] }) {
           onClose={() => setEmailMatch(null)}
         />
       )}
-      <div className="rounded-xl border border-zinc-800 overflow-hidden">
+      <div className="border border-[#3c3c3c] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-zinc-800 text-left text-xs text-zinc-500 uppercase tracking-wider">
+              <tr className="border-b border-[#3c3c3c] text-left text-xs text-zinc-500 uppercase tracking-wider">
                 <th scope="col" className="py-3 px-4 font-medium w-8"></th>
                 <th scope="col" className="py-3 px-4 font-medium">Program</th>
                 <th scope="col" className="py-3 px-4 font-medium">Category</th>
@@ -68,7 +68,7 @@ export function RankingTable({ matches }: { matches: Match[] }) {
                   <Fragment key={m.id}>
                     <tr
                       className={cn(
-                        "border-b border-zinc-800/50 hover:bg-zinc-800/30 transition-colors",
+                        "border-b border-[#3c3c3c]/50 hover:bg-zinc-800/30 transition-colors",
                         isExpanded && "bg-zinc-800/20",
                       )}
                     >
@@ -131,7 +131,7 @@ export function RankingTable({ matches }: { matches: Match[] }) {
                       <td className="py-3 px-4 text-zinc-400">{m.cost}</td>
                       <td className="py-3 px-4">
                         <Button
-                          variant="success"
+                          variant="m-blue"
                           size="sm"
                           onClick={() => setEmailMatch(m)}
                         >
@@ -161,7 +161,7 @@ export function RankingTable({ matches }: { matches: Match[] }) {
                             </div>
 
                             {eligibleSources.length > 0 && (
-                              <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-3">
+                              <div className="border border-[#0066b1]/20 bg-[#0066b1]/5 p-3">
                                 <h4 className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">
                                   You Qualify Via
                                 </h4>
@@ -208,7 +208,7 @@ export function RankingTable({ matches }: { matches: Match[] }) {
                             </div>
 
                             {m.tips && (
-                              <div className={cn("rounded-lg border p-3", easeBg(m.difficulty))}>
+                              <div className={cn("border border-[#3c3c3c]/50 p-3", easeBg(m.difficulty))}>
                                 <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1">
                                   Tips from Reports
                                 </h4>

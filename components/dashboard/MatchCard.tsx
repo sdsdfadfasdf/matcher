@@ -55,7 +55,7 @@ export function MatchCard({ match }: { match: Match }) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -12 }}
         className={cn(
-          "rounded-xl border bg-zinc-900/60 overflow-hidden transition-shadow hover:shadow-lg hover:shadow-black/30 hover:border-zinc-700/60",
+          "border border-[#3c3c3c] bg-[#1a1a1a] overflow-hidden transition-shadow hover:shadow-lg hover:shadow-black/30 hover:border-zinc-700/60",
           rateBorder(effectiveRate),
         )}
       >
@@ -160,7 +160,7 @@ export function MatchCard({ match }: { match: Match }) {
             </div>
 
             {eligibleSources && eligibleSources.length > 0 && (
-              <div className="mb-4 rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-3">
+              <div className="mb-4 border border-[#0066b1]/20 bg-[#0066b1]/5 p-3">
                 <h4 className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-2">
                   You Qualify Via
                 </h4>
@@ -202,7 +202,7 @@ export function MatchCard({ match }: { match: Match }) {
             </div>
 
             {match.tips && (
-              <div className={cn("rounded-lg border p-3 mb-4", easeBg(d))}>
+              <div className={cn("border p-3 mb-4", easeBg(d))}>
                 <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-1">
                   Tips from Reports
                 </h4>
@@ -211,7 +211,7 @@ export function MatchCard({ match }: { match: Match }) {
             )}
 
             {activeProfile && (
-              <div className="mb-4 rounded-lg border border-zinc-800 bg-zinc-900/60 p-3">
+              <div className="mb-4 border border-[#3c3c3c] bg-black/40 p-3">
                 <h4 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">
                   Share Your Experience
                 </h4>
@@ -235,7 +235,7 @@ export function MatchCard({ match }: { match: Match }) {
             {activeProfile && (
               <div className="mb-4">
                 {isInPipeline ? (
-                  <div className="rounded-lg border border-zinc-700/50 bg-zinc-800/30 p-3 text-center">
+                  <div className="border border-[#3c3c3c] bg-black/30 p-3 text-center">
                     <p className="text-xs text-emerald-400 font-medium">Added to Pipeline</p>
                     <p className="text-[10px] text-zinc-500 mt-0.5">Track progress in the pipeline board below</p>
                   </div>
@@ -257,7 +257,7 @@ export function MatchCard({ match }: { match: Match }) {
             )}
 
             <Button
-              variant="success"
+              variant="m-blue"
               size="md"
               className="w-full"
               onClick={() => setEmailOpen(true)}
